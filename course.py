@@ -6,18 +6,48 @@ Class definitions for Course and Instructor.
 
 class Instructor:
     def __init__(self, fini, lname, andrew):
+        # string initial letter of first name, capitalized e.g. "J"
         self.first_initial = fini
+
+        # string last name, capitalized e.g. "Lee"
         self.last_name = lname
+
+        # string Andrew ID, smaller case e.g. "nobodysandrew1"
         self.andrew_id = andrew
 
 
 class Course:
     def __init__(self):
-        self.title = ""
-        self.day_of_week = 0  # 1 = Mon, 2 = Tues, ..., 7 = Sun
-        self.start_time = None  # datetime object
-        self.end_time = None  # datetime object
+        # int including 98 excluding hyphen e.g. 98012
+        self.number = 0
+        
+        # string including "Student Taught Courses (StuCo): " prefix
+        # e.g. "Student Taught Courses (StuCo): Fun with Robots"
+        self.long_title = ""
+        
+        # string including "STUCO: " prefix e.g. "STUCO: FUN WTH ROBTS"
+        self.short_title = ""
+
+        # Currently all StuCo's are 3 units
+        units = 3
+
+        # int type: 1 = Mon, 2 = Tues, ..., 7 = Sun
+        self.day_of_week = 0
+
+        # datetime object denoting starting time on the day
+        self.start_time = None
+
+        # datetime object denoting ending time on the day
+        self.end_time = None
+
+        # string as it shows on SIO
         self.location = ""
-        self.remote = None  # Boolean value, true iff the class is remote
-        self.instructors = []  # A list of Instructor objects
+
+        # bool value, trueiff the class is remote only
+        self.remote_only = None
+
+        # A list of Instructor objects
+        self.instructors = []
+
+        # string description as same on SIO
         self.description = ""

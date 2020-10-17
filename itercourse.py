@@ -12,15 +12,26 @@ class SOCIter():
     """
     def __init__(self, soc_lines):
         self.lines = soc_lines
-        self.idx = 0
-        self.max_idx = len(self.lines) - 1
+        self.i = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        #  while not self.is_course_header()
+        while not self.is_course_header(self.idx):
+            self.idx += 1
+            if self.over_bound(self.i):
+                raise StopIteration
+        # i currently pointing at a header
 
-    def is_course_header(self, s):
+       thisCourse = course.Course()
+
+
+
+    def is_course_header(self, idx):
+        curr = self.lines[idx]
         pattern = "98\d{3} Student Taught Courses \(StuCo\): .* \(STUCO: .*\)"
-        return re.match(pattern, s)
+        return re.match(pattern, curr)
+
+    def over_bound(self, i):
+        return self.i >= len(self.lines)
