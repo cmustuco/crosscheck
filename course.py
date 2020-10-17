@@ -47,8 +47,8 @@ class Course:
         # bool value, trueiff the class is remote only
         self.remote_only = None
 
-        # A list of Instructor objects
-        self.instructors = []
+        # A set of Instructor objects
+        self.instructors = set()
 
         # int max enrollment
         self.max_enroll = 0
@@ -61,8 +61,12 @@ class Course:
         target += str(self.number) + "\n\t"
         target += self.long_title + "\n\t"
         target += self.short_title + "\n\t"
-        target += ccutils.dow2str(self.day_of_week) + "\n\t"
-        target += "Starts at " + str(self.start_time) + "\n\t"
-        target += "Ends at " + str(self.end_time) + "\n\t"
+        target += ccutils.dow2str(self.day_of_week)
+        target += " " + str(self.start_time)
+        target += " - " + str(self.end_time) + "\n\t"
+        target += "Location " + self.location + "\n\t"
+        target += "Remote only: " + str(self.remote_only) + "\n\t"
+        target += "Instructors " + self.instructors + "\n\t"
+        target += "Max enroll = " + str(self.max_enroll) + "\n\t"
 
         return target
