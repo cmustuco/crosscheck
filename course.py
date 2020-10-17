@@ -2,6 +2,7 @@
 course
 Class definitions for Course and Instructor.
 """
+import ccutils
 
 
 class Instructor:
@@ -17,14 +18,17 @@ class Instructor:
 
 
 class Course:
+    """
+    Course class. For available fields see __init__
+    """
     def __init__(self):
         # int including 98 excluding hyphen e.g. 98012
         self.number = 0
-        
+
         # string including "Student Taught Courses (StuCo): " prefix
         # e.g. "Student Taught Courses (StuCo): Fun with Robots"
         self.long_title = ""
-        
+
         # string including "STUCO: " prefix e.g. "STUCO: FUN WTH ROBTS"
         self.short_title = ""
 
@@ -37,7 +41,7 @@ class Course:
         # datetime object denoting ending time on the day
         self.end_time = None
 
-        # string as it shows on SIO
+        # string Room as it shows on SIO
         self.location = ""
 
         # bool value, trueiff the class is remote only
@@ -45,6 +49,9 @@ class Course:
 
         # A list of Instructor objects
         self.instructors = []
+
+        # int max enrollment
+        self.max_enroll = 0
 
         # string description as same on SIO
         self.description = ""
@@ -54,5 +61,8 @@ class Course:
         target += str(self.number) + "\n\t"
         target += self.long_title + "\n\t"
         target += self.short_title + "\n\t"
+        target += ccutils.dow2str(self.day_of_week) + "\n\t"
+        target += "Starts at " + str(self.start_time) + "\n\t"
+        target += "Ends at " + str(self.end_time) + "\n\t"
 
         return target

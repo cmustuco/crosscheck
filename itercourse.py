@@ -3,7 +3,9 @@ itercourse
 Iterators that take in SOC/Spreadsheet and output courses.
 """
 import re
+import datetime
 import course
+import ccutils
 
 
 class SOCIter():
@@ -17,11 +19,9 @@ class SOCIter():
         # For regex matching purpose
         self.header_pattern = \
             r'(?P<number>98\d{3})'\
-            r' Student Taught Courses \(StuCo\): '\
-            r'(?P<long_title>.+)'\
-            r' \('\
-            r'(?P<short_title>STUCO: .+)'\
-            r'\)'
+            r' Student Taught Courses \(StuCo\): (?P<long_title>.+)'\
+            r' \((?P<short_title>STUCO: .+)\)'\
+            r'\s+(?P<units>[\d~]+) units'
 
         # Skip 98000
         while not re.match(self.header_pattern, self.lines[self.i]):
@@ -42,7 +42,7 @@ class SOCIter():
 
         this_course = course.Course()
 
-        # Add number, long title and short title to course
+        # Parse number, long title, short title and units to course
         header_dict = re.match(self.header_pattern,
                                self.lines[self.i]).groupdict()
         this_course.number = header_dict["number"]
@@ -56,6 +56,9 @@ class SOCIter():
         # Parse info line with info header and add info to course
         self.i += 1
         info_dict = re.match(info_pattern, self.lines[self.i]).groupdict()
+        this_course.day_of_week = ccutils.str2dow(info_dict["day_of_week"])
+        this_course.start_time = ccutils.str2time(info_dict["start_time"])
+        this_course.end_time = ccutils.str2time(info_dict["end_time"])
 
         return this_course
 
@@ -66,7 +69,7 @@ class SOCIter():
         buildup_list = \
             [('LEC/SEC', r'[A-Z0-9]+', 'lecture'),
              ('DAY(S)', r'(M|T|W|R|F|S|U|,)+', 'day_of_week'),
-             ('BEGIN TIME', r'\d{2}:\d{2}(A|P)M', 'begin_time'),
+             ('BEGIN TIME', r'\d{2}:\d{2}(A|P)M', 'start_time'),
              ('END TIME', r'\d{2}:\d{2}(A|P)M', 'end_time'),
              ('BLDG/ROOM', r'[\w ]+', 'location'),
              ('INSTRUCTOR(S)', r'[A-Z]\w*,\s+[A-Z]\s+\(\w+\);*.*',

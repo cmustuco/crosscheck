@@ -30,7 +30,7 @@ def crosscheck(soc_lines, spr_lines):
     """
     soc_iter = itercourse.SOCIter(soc_lines)
     for course in soc_iter:
-        print(" ")
+        print(course)
     return []
 
 
