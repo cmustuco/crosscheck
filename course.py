@@ -28,9 +28,6 @@ class Course:
         # string including "STUCO: " prefix e.g. "STUCO: FUN WTH ROBTS"
         self.short_title = ""
 
-        # Currently all StuCo's are 3 units
-        units = 3
-
         # int type: 1 = Mon, 2 = Tues, ..., 7 = Sun
         self.day_of_week = 0
 
@@ -51,3 +48,11 @@ class Course:
 
         # string description as same on SIO
         self.description = ""
+
+    def __repr__(self):
+        target = ""
+        target += str(self.number) + "\n\t"
+        target += self.long_title + "\n\t"
+        target += self.short_title + "\n\t"
+
+        return target
