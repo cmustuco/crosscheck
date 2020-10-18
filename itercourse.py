@@ -52,7 +52,7 @@ class SOCIter():
         self.i += 1
         info_pattern = self.prepare_info_pattern(self.lines[self.i])
 
-        # Parse info line with info header and add info to course
+        # Parse continuing info line and add info to course
         self.i += 1
         info_dict = re.match(info_pattern, self.lines[self.i]).groupdict()
         this_course.day_of_week = ccutils.str2dow(info_dict["day_of_week"])
@@ -64,7 +64,38 @@ class SOCIter():
         else:
             this_course.remote_only = False
         this_course.max_enroll = int(info_dict["max_enroll"])
-        this_course.instructors = info_dict["instructors"].strip()
+        instructors_buildup = info_dict["instructors"].strip()
+        
+        # Continue to read any remaining instructor info
+        self.i += 1
+        while not re.match("Description:", self.lines[self.i]):
+            instructors_buildup += self.lines[self.i].strip()
+            self.i += 1
+
+        instructor_str_list = instructors_buildup.split(";")
+        instructor_pattern = \
+            r"(?P<last_name>[A-Z][\w' -]+),\s*"\
+            r'(?P<first_initial>[A-Z])\s*\('\
+            r'(?P<andrew_id>[a-z0-9]+)\)'
+        for instructor_str in instructor_str_list:
+            this_instructor_dict = re.match(instructor_pattern,
+                                            instructor_str.strip()).groupdict()
+            this_instructor = \
+                course.Instructor(this_instructor_dict["first_initial"],
+                                  this_instructor_dict["last_name"],
+                                  this_instructor_dict["andrew_id"])
+            this_course.instructors.add(this_instructor)
+
+        # Read course description
+        self.i += 1
+        description_buildup = ""
+        while not re.match(self.header_pattern, self.lines[self.i]):
+            description_buildup += self.lines[self.i].strip()
+            self.i += 1
+            if self.i >= len(self.lines):
+                self.i -= 1
+                break
+        this_course.description = description_buildup
 
         return this_course
 

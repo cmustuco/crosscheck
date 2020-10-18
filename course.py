@@ -6,6 +6,9 @@ import ccutils
 
 
 class Instructor:
+    """
+    Instructor class. For available fields see __init__
+    """
     def __init__(self, fini, lname, andrew):
         # string initial letter of first name, capitalized e.g. "J"
         self.first_initial = fini
@@ -15,6 +18,10 @@ class Instructor:
 
         # string Andrew ID, smaller case e.g. "nobodysandrew1"
         self.andrew_id = andrew
+
+    def __repr__(self):
+        return self.first_initial + ". " + self.last_name + " (" + \
+            self.andrew_id + ")"
 
 
 class Course:
@@ -58,15 +65,17 @@ class Course:
 
     def __repr__(self):
         target = ""
-        target += str(self.number) + "\n\t"
-        target += self.long_title + "\n\t"
-        target += self.short_title + "\n\t"
+        target += str(self.number) + "\n"
+        target += self.long_title + " (" + self.short_title + ")\n"
         target += ccutils.dow2str(self.day_of_week)
         target += " " + str(self.start_time)
-        target += " - " + str(self.end_time) + "\n\t"
-        target += "Location " + self.location + "\n\t"
-        target += "Remote only: " + str(self.remote_only) + "\n\t"
-        target += "Instructors " + self.instructors + "\n\t"
-        target += "Max enroll = " + str(self.max_enroll) + "\n\t"
+        target += " - " + str(self.end_time) + "\n"
+        target += "Location " + self.location + "\n"
+        target += "Remote only: " + str(self.remote_only) + "\n"
+        target += "Max enroll = " + str(self.max_enroll) + "\n"
+        target += "Instructor(s):"
+        for instructor in self.instructors:
+            target += "\n\t" + str(instructor)
+        target += "\nDescription: \n\t" + self.description + "\n"
 
         return target
