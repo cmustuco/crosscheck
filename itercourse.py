@@ -7,7 +7,7 @@ import course
 import ccutils
 
 
-class SOCIter():
+class SocIter():
     """
     Iterator that takes in a list of lines in SOC and outputs courses.
     """
@@ -18,22 +18,25 @@ class SOCIter():
         # For regex matching purpose
         self.header_pattern = \
             r'(?P<number>98\d{3})'\
-            r' Student Taught Courses \(StuCo\): (?P<long_title>.+)'\
-            r' \((?P<short_title>STUCO: .+)\)'\
+            r' Student Taught Courses\s*\(StuCo\): (?P<long_title>.+)'\
+            r' \((?P<short_title>STUCO: .+)(\))*'\
             r'\s+(?P<units>[\d~]+) units'
 
         # Skip 98000
         while not re.match(self.header_pattern, self.lines[self.i]):
             self.i += 1
             if self.i >= len(self.lines):
-                raise StopIteration
+                break
         self.i += 1
+        # self.i now points at the first line after 98000 header
 
     def __iter__(self):
         return self
 
     def __next__(self):
         # Find next course header line
+        if self.i >= len(self.lines):
+            raise StopIteration
         while not re.match(self.header_pattern, self.lines[self.i]):
             self.i += 1
             if self.i >= len(self.lines):
@@ -45,8 +48,11 @@ class SOCIter():
         header_dict = re.match(self.header_pattern,
                                self.lines[self.i]).groupdict()
         this_course.number = header_dict["number"]
-        this_course.long_title = header_dict["long_title"]
-        this_course.short_title = header_dict["short_title"]
+        this_course.long_title = header_dict["long_title"].strip()
+        this_course.short_title = header_dict["short_title"].strip()
+        if this_course.short_title[-1] == ")" and \
+                this_course.short_title.count("(") == 0:
+            this_course.short_title = this_course.short_title[:-1]
 
         # Build info pattern from info header
         self.i += 1
@@ -120,3 +126,75 @@ class SOCIter():
         buildup_list = [buildup_list[0]] + \
             [r'\s+' + x for x in buildup_list[1:]]
         return "".join(buildup_list)
+
+
+class SprIter():
+    """
+    Iterator that takes in a spreadsheet and outputs courses.
+    """
+    def __init__(self, spr_lines):
+        self.lines = spr_lines
+        self.i = 0
+
+        # Discovering entry order. Assume row 0 contains all titles
+        buildup_list = ["Class Number", "Long Title", "Short Title",
+                        "Instructor First Name", "Instructor Last Name",
+                        "Instructor AndrewID", "Room", "Max Size", "Day",
+                        "Start Time", "End Time", "Modality",
+                        "Course Description"]
+        self.index_dict = {x: self.lines[0].index(x) for x in buildup_list}
+
+        # Skip 98000
+        while not self.get_entry(self.i, "Class Number") == '98-000':
+            self.i += 1
+            if self.i >= len(self.lines):
+                break
+        self.i += 1
+        # self.i now points at first line after 98000 entry
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.i >= len(self.lines):
+            raise StopIteration
+
+        # self.i now points at first row of new course
+        thisCourse = course.Course()
+
+        # Reading various info from first row
+        thisCourse.number = self.parse_course_num(
+                self.get_entry(self.i, "Class Number"))
+        thisCourse.long_title = self.get_entry(self.i, "Long Title")
+        thisCourse.short_title = self.get_entry(self.i, "Short Title")
+        thisCourse.day_of_week = ccutils.str2dow(self.get_entry(self.i, "Day"))
+        thisCourse.start_time = ccutils.str2time(
+                self.get_entry(self.i, "Start Time"))
+        thisCourse.end_time = ccutils.str2time(
+                self.get_entry(self.i, "End Time"))
+        thisCourse.location = self.get_entry(self.i, "Room")
+        thisCourse.remote_only = self.get_entry(self.i, "Modality") == \
+            "REO - Remote Only"
+        thisCourse.max_enroll = int(self.get_entry(self.i, "Max Size"))
+        thisCourse.description = \
+            self.get_entry(self.i, "Course Description").strip()
+
+        # Read every instructor line by line
+        while self.parse_course_num(self.get_entry(self.i, "Class Number")) \
+                == thisCourse.number:
+            lname = self.get_entry(self.i, "Instructor Last Name")
+            fini = self.get_entry(self.i, "Instructor First Name")[0]
+            andrew = self.get_entry(self.i, "Instructor AndrewID")
+            thisInstructor = course.Instructor(fini, lname, andrew)
+            thisCourse.instructors.add(thisInstructor)
+            self.i += 1
+            if self.i >= len(self.lines):
+                break
+
+        return thisCourse
+
+    def get_entry(self, line_num, keyword):
+        return self.lines[line_num][self.index_dict[keyword]]
+
+    def parse_course_num(self, numstr):
+        return int(re.sub("-", "", numstr))

@@ -28,9 +28,14 @@ def crosscheck(soc_lines, spr_lines):
         soc_lines: a list containing each line in the SOC.
         spr_lines: a list containing each line in the spreadsheet.
     """
-    soc_iter = itercourse.SOCIter(soc_lines)
-    for course in soc_iter:
+    #  soc_iter = itercourse.SocIter(soc_lines)
+    #  for course in soc_iter:
+    #      print(course)
+    #
+    spr_iter = itercourse.SprIter(spr_lines)
+    for course in spr_iter:
         print(course)
+
     return []
 
 

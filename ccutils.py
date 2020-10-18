@@ -3,6 +3,7 @@ ccutils
 crosscheck utils
 Various utilities for use for the crosscheck project.
 """
+import re
 import datetime
 
 
@@ -51,8 +52,10 @@ def dow2str(dow):
 def str2time(curr):
     """
     Converts a string representation of a time to a datetime object.
-    Input: \d{2}:\d{2}(A|P)M
+    Input: \d\d?:\d{2}(:\d{2})?(A|P)M
     """
+    curr = re.sub(r"(?P<actual_time>\d\d?:\d{2}):\d{2} ?(?P<ampm>(A|P)M)",
+                  r"\g<actual_time>\g<ampm>", curr)
     is_pm = curr[-2] == 'P'
     if is_pm:
         format_str = "%H:%MPM"
