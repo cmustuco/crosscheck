@@ -65,3 +65,13 @@ def str2time(curr):
     if (is_pm):
         this_time += datetime.timedelta(hours=12)
     return this_time.time()
+
+
+def timediff(time1, time2):
+    """
+    Given two datetime.time objects, return a datetime.timedelta object.
+    """
+    datetime1 = datetime.datetime.combine(datetime.date.today(), time1)
+    datetime2 = datetime.datetime.combine(datetime.date.today(), time2)
+    timedelta = datetime2 - datetime1
+    return timedelta

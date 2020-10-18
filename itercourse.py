@@ -47,7 +47,7 @@ class SocIter():
         # Parse number, long title, short title and units to course
         header_dict = re.match(self.header_pattern,
                                self.lines[self.i]).groupdict()
-        this_course.number = header_dict["number"]
+        this_course.number = int(header_dict["number"])
         this_course.long_title = header_dict["long_title"].strip()
         this_course.short_title = header_dict["short_title"].strip()
         if this_course.short_title[-1] == ")" and \
@@ -71,7 +71,7 @@ class SocIter():
             this_course.remote_only = False
         this_course.max_enroll = int(info_dict["max_enroll"])
         instructors_buildup = info_dict["instructors"].strip()
-        
+
         # Continue to read any remaining instructor info
         self.i += 1
         while not re.match("Description:", self.lines[self.i]):
