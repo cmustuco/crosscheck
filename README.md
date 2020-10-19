@@ -17,15 +17,20 @@ python crosscheck.py soc.pdf spr.csv out.txt
 `out.txt`: An output file will be created on this pathname and will detail all differences found across the SOC and the Spreadsheet.
 
 ## Notes
-The output file lists all the differences found across both documents grouped by course. In its language, SOC means Schedule of Classes, and SPR means the Spreadsheet. Here's what to do upon each type of difference found:
-- Long title and short title
-    If the SPR version doesn't seem to be too far off from the SOC version, change the SPR to the same as the SOC.
-- Hello
-   This is 3 spaces.
-- 4 space
-    This is 4 space.
-- Tab
-    This is a tab.
+The output file lists all the differences found across both documents grouped by course. In its language, SOC means Schedule of Classes, and SPR means the Spreadsheet.
+
+### Actions to take
+Here's what to do upon each difference found:
+
+- **Long title and short title**
+    - If the SPR version doesn't seem to be too far off from the SOC version, change the SPR to the same as the SOC. Otherwise, make sure that the SPR version is what the instructors really want and report to Kristin. Sometimes the SOC PDF can truncate the titles; it's a weakness inherent to the PDF that SOC generated, we don't need to care about that.
+- **Day of week, start and end time**
+    - If Day of week is wrong, ask Kristin to change the SOC.
+    - If start/end time is wrong, take these steps:
+        1. Validate the instructor input. StuCo class lengths are always 50 mins, 80 mins, or 110 mins. Classes aren't permitted to end on the hour.
+        2. If the instructor request is legitimate, verify that it is what they really want and report to Kristin.
+        
+        However, this is an indented block!
 
 ## Contributing
 
