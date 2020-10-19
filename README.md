@@ -12,11 +12,14 @@ Crosscheck is a Python utility for comparing the Schedule of Classes PDF and the
 ```bash
 python crosscheck.py soc.pdf spr.csv out.txt
 ```
-`soc.pdf`: Path to the Schedule of Classes PDF file. This should come from Kristin.<br />
-`spr.csv`: Path to the StuCo Spreadsheet CSV file. This should be maintained by Exec.<br />
-`out.txt`: An output file will be created on this path and will detail all differences found across the SOC and the Spreadsheet.  
+`soc.pdf`: Path to the Schedule of Classes PDF file. This should come from Kristin.\
+`spr.csv`: Path to the StuCo Spreadsheet CSV file. This should be maintained by Exec.\
+`out.txt`: An output file will be created on this path and will detail all differences found across the SOC and the Spreadsheet.
 
 ## Notes
-a\
-b\
-c
+
+## Contributing
+
+You are welcome to contribute to this project. Currently, possible things to work on include:
+- Support for command-line options so future Exec can choose to ignore some subset of course data (they may not care if the descriptions are different)
+- For some output texts (e.g. course description), write a formatted text to point out where exactly they are different
