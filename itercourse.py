@@ -182,9 +182,9 @@ class SprIter():
         # Read every instructor line by line
         while self.parse_course_num(self.get_entry(self.i, "Class Number")) \
                 == thisCourse.number:
-            lname = self.get_entry(self.i, "Instructor Last Name")
-            fini = self.get_entry(self.i, "Instructor First Name")[0]
-            andrew = self.get_entry(self.i, "Instructor AndrewID")
+            lname = self.get_entry(self.i, "Instructor Last Name").strip()
+            fini = self.get_entry(self.i, "Instructor First Name").strip()[0]
+            andrew = self.get_entry(self.i, "Instructor AndrewID").strip()
             thisInstructor = course.Instructor(fini, lname, andrew)
             thisCourse.instructors.add(thisInstructor)
             self.i += 1

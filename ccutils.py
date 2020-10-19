@@ -46,7 +46,7 @@ def dow2str(dow):
         return "Saturday"
     if dow == 7:
         return "Sunday"
-    return "Error, input was " + str(dow)
+    return "Noday"
 
 
 def str2time(curr):

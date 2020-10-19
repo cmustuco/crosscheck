@@ -88,11 +88,8 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(soc_dow_msg)
             errmsg_list.append(spr_dow_msg)
 
-        # Start & End time
-        # These following checks are specific to S21:
-        # All classes originally starting <= 6:30 should start at 7
-        # All classes originally starting > 6:30 should start at 8:30
-        # Class legth should be unchanged
+        # Start & End time ####################################################
+        # These following checks are specific to S21.
         # In a usual semester, just check if the start and end times are equal
         socst = soc_course.start_time
         socet = soc_course.end_time
@@ -104,6 +101,7 @@ def crosscheck(soc_lines, spr_lines):
         sevenoclock = datetime.time(19, 00)
         halfpasteight = datetime.time(20, 30)
 
+        # All classes originally starting <= 6:30 should start at 7
         if (ccutils.before(sprst, halfpastsix) or sprst == halfpastsix):
             if socst != sevenoclock:
                 start_time_msg = 'Start time on SPR (' + \
@@ -111,6 +109,7 @@ def crosscheck(soc_lines, spr_lines):
                         ' SOC start time (' + ccutils.time2str(socst) +\
                         ') should be 19:00.'
                 errmsg_list.append(start_time_msg)
+        # All classes originally starting > 6:30 should start at 8:30
         else:
             if socst != halfpasteight:
                 start_time_msg = 'Start time on SPR (' + \
@@ -119,13 +118,72 @@ def crosscheck(soc_lines, spr_lines):
                         ') should be 20:30.'
                 errmsg_list.append(start_time_msg)
 
+        # Class length should be unchanged
         if socdur != sprdur:
             soc_dur_msg = 'Duration on SOC: ' + str(socdur)
             spr_dur_msg = 'Duration on SPR: ' + str(sprdur)
             errmsg_list.append(soc_dur_msg)
             errmsg_list.append(spr_dur_msg)
+        #######################################################################
         
+        # Location
+        if soc_course.location != spr_course.location:
+            soc_loc_msg = 'Location on SOC: "' + soc_course.location + '".'
+            spr_loc_msg = 'Location on SPR: "' + spr_course.location + '".'
+            errmsg_list.append(soc_loc_msg)
+            errmsg_list.append(spr_loc_msg)
 
+        # Remote only
+        if soc_course.remote_only != spr_course.remote_only:
+            soc_mod_msg = 'Modality on SOC is ' +\
+                '' if soc_course.remote_only else 'NOT ' +\
+                'Remote Only.'
+            spr_mod_msg = 'Modality on SPR is ' +\
+                '' if spr_course.remote_only else 'NOT ' +\
+                'Remote Only.'
+            errmsg_list.append(soc_mod_msg)
+            errmsg_list.append(spr_mod_msg)
+
+        # Instructors #########################################################
+        soc_ins_dict = {ins.andrew_id: ins for ins in soc_course.instructors}
+        spr_ins_dict = {ins.andrew_id: ins for ins in spr_course.instructors}
+
+        # Check if any instructor is only in one profile and not the other
+        soc_ins_pop_list = []
+        for insid in soc_ins_dict:
+            if insid not in spr_ins_dict:
+                soc_ins_msg = 'Instructor ' + insid + ' is included in SOC'\
+                        ' but not in SPR.'
+                errmsg_list.append(soc_ins_msg)
+                soc_ins_pop_list.append(insid)
+        for waste_id in soc_ins_pop_list:
+            soc_ins_dict.pop(waste_id)
+
+        spr_ins_pop_list = []
+        for insid in spr_ins_dict:
+            if insid not in soc_ins_dict:
+                spr_ins_msg = 'Instructor ' + insid + ' is included in SPR'\
+                        ' but not in SOC.'
+                errmsg_list.append(spr_ins_msg)
+                spr_ins_pop_list.append(insid)
+        for waste_id in spr_ins_pop_list:
+            spr_ins_dict.pop(waste_id)
+        
+        # Now both profiles contain equal instructors, check each
+        for insid in soc_ins_dict:
+            soc_ins = soc_ins_dict[insid]
+            spr_ins = spr_ins_dict[insid]
+            if soc_ins.first_initial != spr_ins.first_initial:
+                fini_msg = 'Instructor ' + insid + ' has first name initial "'\
+                    + soc_ins.first_initial + '" in SOC but "'\
+                    + spr_ins.first_initial + '" in SPR.'
+                errmsg_list.append(fini_msg)
+            if soc_ins.last_name != spr_ins.last_name:
+                lname_msg = 'Instructor ' + insid + ' has last name "'\
+                    + soc_ins.last_name + '" in SOC but "'\
+                    + spr_ins.last_name + '" in SPR.'
+                errmsg_list.append(lname_msg)
+        #######################################################################
 
         if errmsg_list != []:
             errdict[course_num] = errmsg_list

@@ -1,101 +1,191 @@
+98012
+	Location on SOC: "WEH 5409".
+	Location on SPR: "WEH 5202".
 98038
 	Duration on SOC: 1:50:00
 	Duration on SPR: 2:00:00
+	Location on SOC: "GHC 4211".
+	Location on SPR: "GHC Helix classrooms?".
 98127
 	Long title on SOC: "Game Creation for Ppl Who Want to Create Games".
 	Long title on SPR: "Game Creation for Ppl Who Want to Make Games".
 	Short title on SOC: "STUCO: GAME CR ..".
 	Short title on SPR: "STUCO: GAME CREATION".
+	Location on SOC: "DH 2302".
+	Location on SPR: "WEH 5202 the computer labs  but we may go remote ".
+	Instructor yukaiy has first name initial "Y" in SOC but "S" in SPR.
+98163
+	Location on SOC: "WEH 5403".
+	Location on SPR: "".
 98174
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "GHC 4307".
 98177
 	Short title on SOC: "STUCO: BPM".
 	Short title on SPR: "".
 	Duration on SOC: 0:50:00
 	Duration on SPR: 1:00:00
+	Location on SOC: "WEH 7500".
+	Location on SPR: "".
+98205
+	Location on SOC: "BH 136A".
+	Location on SPR: "BH 140F".
 98230
 	Long title on SOC: "Avatar: The Last Airbender & The Legend of Korra".
 	Long title on SPR: "Avatar: The Last Airbender and The Legend of Korra".
 	Short title on SOC: "STUCO: AVATAR &..                                 ..".
 	Short title on SPR: "STUCO: AVATAR AND KORR".
 	Start time on SPR (19:30) is after 18:30. SOC start time (20:00) should be 20:30.
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "WEH 5415".
 98239
 	Long title on SOC: "League of Legends".
 	Long title on SPR: "League of Legends (last ran spring 2019)".
 	Short title on SOC: "STUCO: LEAGUE LEGEND".
 	Short title on SPR: "".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
+	Instructor bjchung is included in SPR but not in SOC.
 98242
 	Long title on SOC: "Intro to Esoteric Programming Languages".
 	Long title on SPR: "Introduction to Esoteric Programming Languages".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
 98244
 	Long title on SOC: "Sign Language Through Pop Music".
 	Long title on SPR: "Sign Language through Pop Music".
 98258
 	Short title on SOC: "STUCO: CMPT POKEMON".
 	Short title on SPR: "CMPT POKEMON".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
+	Instructor xichenc has first name initial "X" in SOC but "T" in SPR.
 98262
 	Long title on SOC: "Intro to Boardgames".
 	Long title on SPR: "Introduction to Boardgames".
 	Short title on SOC: "STUCO: BOARD GAMES".
 	Short title on SPR: "STUCO: BOARDGAMES".
+	Location on SOC: "WEH 5403".
+	Location on SPR: "WEH".
+	Instructor yunsongl has first name initial "Y" in SOC but "L" in SPR.
 98269
 	Long title on SOC: "Intro to Sabermetrics & Exploring Baseball Data".
 	Long title on SPR: "Introduction to Sabermetrics & Exploring Baseball Data".
 	Short title on SOC: "STUCO: SABERMET ..".
 	Short title on SPR: "STUCO: SABERMETRICS".
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
+	Instructor clauer has last name "Lauer" in SOC but "Lauerr" in SPR.
+98272
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "Tepper building room".
 98288
 	Long title on SOC: "Star Wars: The Course Awakens".
 	Long title on SPR: "Star Wars".
+	Location on SOC: "DH 2302".
+	Location on SPR: "".
+	Instructor mobroin has last name "OBroin" in SOC but "Obroin" in SPR.
 98295
 	Long title on SOC: "Lock Picking and Physical Security".
 	Long title on SPR: "Lockpicking and Physical Security".
+	Location on SOC: "WEH 7500".
+	Location on SPR: "Any room with capability to cast the Doc Cam to Zoom. (requires the newer setups, iirc). ".
+	Instructor gdellagr has last name "Della Grotte" in SOC but "Della" in SPR.
+98303
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
+98309
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "WEH 5300".
 98317
 	Short title on SOC: "STUCO: TYPE THEORY".
 	Short title on SPR: "STUCO: HYPE FOR TYPES".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
 98335
 	Short title on SOC: "STUCO: GLOWSTRINGING".
 	Short title on SPR: "GLOWSTRINGING".
+	Location on SOC: "CUC AR 237".
+	Location on SPR: "We need a dance studio room with a mirror, usually we have the CUC Activities Room.".
 98336
 	Short title on SOC: "STUCO: GREEK MYTHS".
 	Short title on SPR: "STUCO: GRK MYTHOLOGY".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "WEH 6423".
 98350
 	Short title on SOC: "STUCO: BRIDGE".
 	Short title on SPR: "BRIDGE".
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
 98359
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "WEH 6423".
+	Location on SPR: "".
 98368
 	Day of week on SOC: Tuesday.
 	Day of week on SPR: Monday.
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "Gates".
+98369
+	Location on SOC: "WEH 4625".
+	Location on SPR: "WEH 5415".
 98372
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "WEH 6423".
+	Location on SPR: "".
 98373
 	Long title on SOC: "The Legend of Zelda: The Tri Course".
 	Long title on SPR: "The Legend of Zelda: The TriCourse".
 	Duration on SOC: 1:20:00
 	Duration on SPR: 0:50:00
+	Location on SOC: "WEH 5202".
+	Location on SPR: "".
 98374
 	Short title on SOC: "STUCO: TEA CULTUR..                              ..".
 	Short title on SPR: "STUCO: TEA CULTURE".
+	Location on SOC: "BH 136A".
+	Location on SPR: "".
 98375
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "DH 2315".
+	Location on SPR: "DH 1212".
 98376
 	Long title on SOC: "Interpreting Film Through Painting".
 	Long title on SPR: "Interpreting Film through Painting".
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "".
+98377
+	Location on SOC: "WEH 5302".
+	Location on SPR: "".
 98379
 	Short title on SOC: "STUCO: NEURO NON-MAJ".
 	Short title on SPR: "NEURO NON-MAJ".
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Duration on SOC: 1:20:00
 	Duration on SPR: 1:30:00
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "DH 1212".
 98380
 	Short title on SOC: "STUCO: PRCTCL ECON".
 	Short title on SPR: "PRCTCL ECON".
 	Duration on SOC: 0:50:00
 	Duration on SPR: 1:00:00
+	Location on SOC: "WEH 5310".
+	Location on SPR: "Tepper 2700, TQ 2613, TA 2612, TQ 2611, TQ 2610, TQ 2701, TQ 3801, Wean 5409".
 98382
 	Long title on SOC: "Bears, Beets, Battlestar Galactica: The Office".
 	Long title on SPR: "Bears, Beets, Battlestar Galactica: Delving into The Office".
 	Short title on SOC: "STUCO: THE OFFICE".
 	Short title on SPR: "STUCO: The Office".
+	Location on SOC: "DH 2315".
+	Location on SPR: "Any room with projector".
+98383
+	Location on SOC: "CMU REMOTE".
+	Location on SPR: "PH A18A".
+98384
+	Location on SOC: "DH A302".
+	Location on SPR: "".
+	Instructor zhihuil has first name initial "Z" in SOC but "C" in SPR.
