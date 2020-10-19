@@ -1,11 +1,13 @@
 98012
 	Location on SOC: "WEH 5409".
 	Location on SPR: "WEH 5202".
+	Course descriptions are different.
 98038
 	Duration on SOC: 1:50:00
 	Duration on SPR: 2:00:00
 	Location on SOC: "GHC 4211".
 	Location on SPR: "GHC Helix classrooms?".
+	Course descriptions are different.
 98127
 	Long title on SOC: "Game Creation for Ppl Who Want to Create Games".
 	Long title on SPR: "Game Creation for Ppl Who Want to Make Games".
@@ -21,6 +23,7 @@
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "GHC 4307".
+	Course descriptions are different.
 98177
 	Short title on SOC: "STUCO: BPM".
 	Short title on SPR: "".
@@ -28,6 +31,7 @@
 	Duration on SPR: 1:00:00
 	Location on SOC: "WEH 7500".
 	Location on SPR: "".
+	Course descriptions are different.
 98205
 	Location on SOC: "BH 136A".
 	Location on SPR: "BH 140F".
@@ -47,14 +51,18 @@
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "".
 	Instructor bjchung is included in SPR but not in SOC.
+	Course descriptions are different.
 98242
 	Long title on SOC: "Intro to Esoteric Programming Languages".
 	Long title on SPR: "Introduction to Esoteric Programming Languages".
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "".
+	Course descriptions are different.
 98244
 	Long title on SOC: "Sign Language Through Pop Music".
 	Long title on SPR: "Sign Language through Pop Music".
+	Max Enroll on SOC: "18".
+	Max Enroll on SPR: "20".
 98258
 	Short title on SOC: "STUCO: CMPT POKEMON".
 	Short title on SPR: "CMPT POKEMON".
@@ -69,6 +77,7 @@
 	Location on SOC: "WEH 5403".
 	Location on SPR: "WEH".
 	Instructor yunsongl has first name initial "Y" in SOC but "L" in SPR.
+	Course descriptions are different.
 98269
 	Long title on SOC: "Intro to Sabermetrics & Exploring Baseball Data".
 	Long title on SPR: "Introduction to Sabermetrics & Exploring Baseball Data".
@@ -81,6 +90,7 @@
 98272
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "Tepper building room".
+	Course descriptions are different.
 98288
 	Long title on SOC: "Star Wars: The Course Awakens".
 	Long title on SPR: "Star Wars".
@@ -96,9 +106,11 @@
 98303
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "".
+	Course descriptions are different.
 98309
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "WEH 5300".
+	Course descriptions are different.
 98317
 	Short title on SOC: "STUCO: TYPE THEORY".
 	Short title on SPR: "STUCO: HYPE FOR TYPES".
@@ -109,11 +121,13 @@
 	Short title on SPR: "GLOWSTRINGING".
 	Location on SOC: "CUC AR 237".
 	Location on SPR: "We need a dance studio room with a mirror, usually we have the CUC Activities Room.".
+	Course descriptions are different.
 98336
 	Short title on SOC: "STUCO: GREEK MYTHS".
 	Short title on SPR: "STUCO: GRK MYTHOLOGY".
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "WEH 6423".
+	Course descriptions are different.
 98350
 	Short title on SOC: "STUCO: BRIDGE".
 	Short title on SPR: "BRIDGE".
@@ -123,18 +137,22 @@
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Location on SOC: "WEH 6423".
 	Location on SPR: "".
+	Course descriptions are different.
 98368
 	Day of week on SOC: Tuesday.
 	Day of week on SPR: Monday.
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "Gates".
+	Course descriptions are different.
 98369
 	Location on SOC: "WEH 4625".
 	Location on SPR: "WEH 5415".
+	Course descriptions are different.
 98372
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Location on SOC: "WEH 6423".
 	Location on SPR: "".
+	Course descriptions are different.
 98373
 	Long title on SOC: "The Legend of Zelda: The Tri Course".
 	Long title on SPR: "The Legend of Zelda: The TriCourse".
@@ -142,24 +160,29 @@
 	Duration on SPR: 0:50:00
 	Location on SOC: "WEH 5202".
 	Location on SPR: "".
+	Course descriptions are different.
 98374
 	Short title on SOC: "STUCO: TEA CULTUR..                              ..".
 	Short title on SPR: "STUCO: TEA CULTURE".
 	Location on SOC: "BH 136A".
 	Location on SPR: "".
+	Course descriptions are different.
 98375
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Location on SOC: "DH 2315".
 	Location on SPR: "DH 1212".
+	Course descriptions are different.
 98376
 	Long title on SOC: "Interpreting Film Through Painting".
 	Long title on SPR: "Interpreting Film through Painting".
 	Start time on SPR (19:00) is after 18:30. SOC start time (19:00) should be 20:30.
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "".
+	Course descriptions are different.
 98377
 	Location on SOC: "WEH 5302".
 	Location on SPR: "".
+	Course descriptions are different.
 98379
 	Short title on SOC: "STUCO: NEURO NON-MAJ".
 	Short title on SPR: "NEURO NON-MAJ".
@@ -185,6 +208,7 @@
 98383
 	Location on SOC: "CMU REMOTE".
 	Location on SPR: "PH A18A".
+	Course descriptions are different.
 98384
 	Location on SOC: "DH A302".
 	Location on SPR: "".

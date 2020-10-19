@@ -15,8 +15,8 @@ Args:
 """
 import sys
 import csv
-import pdftotext
 import datetime
+import pdftotext
 import itercourse
 import ccutils
 
@@ -125,7 +125,7 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(soc_dur_msg)
             errmsg_list.append(spr_dur_msg)
         #######################################################################
-        
+
         # Location
         if soc_course.location != spr_course.location:
             soc_loc_msg = 'Location on SOC: "' + soc_course.location + '".'
@@ -168,7 +168,7 @@ def crosscheck(soc_lines, spr_lines):
                 spr_ins_pop_list.append(insid)
         for waste_id in spr_ins_pop_list:
             spr_ins_dict.pop(waste_id)
-        
+
         # Now both profiles contain equal instructors, check each
         for insid in soc_ins_dict:
             soc_ins = soc_ins_dict[insid]
@@ -185,13 +185,29 @@ def crosscheck(soc_lines, spr_lines):
                 errmsg_list.append(lname_msg)
         #######################################################################
 
+        # Max enroll
+        if soc_course.max_enroll != spr_course.max_enroll:
+            soc_me_msg = 'Max Enroll on SOC: "' + str(soc_course.max_enroll) +\
+                '".'
+            spr_me_msg = 'Max Enroll on SPR: "' + str(spr_course.max_enroll) +\
+                '".'
+            errmsg_list.append(soc_me_msg)
+            errmsg_list.append(spr_me_msg)
+
+        # Description
+        soc_desc = soc_course.description.replace(" ", "").replace("\n", "")
+        spr_desc = spr_course.description.replace(" ", "").replace("\n", "")
+        if soc_desc != spr_desc:
+            des_msg = "Course descriptions are different."
+            errmsg_list.append(des_msg)
+
         if errmsg_list != []:
             errdict[course_num] = errmsg_list
 
     return errdict
 
 
-if __name__ == "__main__":
+def main():
     soc_path = sys.argv[1]
     spr_path = sys.argv[2]
     out_path = sys.argv[3]
@@ -215,3 +231,7 @@ if __name__ == "__main__":
             out_file.write("\n")
         if error_dict == {}:
             out_file.write("No difference found - All good!\n")
+
+
+if __name__ == "__main__":
+    main()
