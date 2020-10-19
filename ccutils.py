@@ -75,3 +75,17 @@ def timediff(time1, time2):
     datetime2 = datetime.datetime.combine(datetime.date.today(), time2)
     timedelta = datetime2 - datetime1
     return timedelta
+
+
+def before(time1, time2):
+    """
+    Return True iff time1 is before time2.
+    """
+    return timediff(time2, time1).days < 0
+
+
+def time2str(curr):
+    """
+    Represent the given time in the format \d{2}:\d{2}, in 24 hours notation.
+    """
+    return datetime.time.strftime(curr, "%H:%M")

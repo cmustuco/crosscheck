@@ -42,9 +42,7 @@ def crosscheck(soc_lines, spr_lines):
     soc_pop_list = []
     for course_num in soc_dict:
         if course_num not in spr_dict:
-            errdict[course_num] = [
-                f"Course number {course_num} exists in SOC but not in the "
-                "Spreadsheet."]
+            errdict[course_num] = ["Exists in SOC but not in SPR."]
             soc_pop_list.append(course_num)
     for waste_num in soc_pop_list:
         soc_dict.pop(waste_num)
@@ -52,9 +50,7 @@ def crosscheck(soc_lines, spr_lines):
     spr_pop_list = []
     for course_num in spr_dict:
         if course_num not in soc_dict:
-            errdict[course_num] = [
-                f"Course number {course_num} exists in the Spreadsheet but "
-                "not in SOC."]
+            errdict[course_num] = ["Exists in SPR but not in SOC."]
             spr_pop_list.append(course_num)
     for waste_num in spr_pop_list:
         spr_dict.pop(waste_num)
@@ -69,7 +65,7 @@ def crosscheck(soc_lines, spr_lines):
         if soc_course.long_title != spr_course.long_title:
             soc_long_title_msg = 'Long title on SOC: "' +\
                                  soc_course.long_title + '".'
-            spr_long_title_msg = 'Long title on Spreadsheet: "' +\
+            spr_long_title_msg = 'Long title on SPR: "' +\
                                  spr_course.long_title + '".'
             errmsg_list.append(soc_long_title_msg)
             errmsg_list.append(spr_long_title_msg)
@@ -78,7 +74,7 @@ def crosscheck(soc_lines, spr_lines):
         if soc_course.short_title != spr_course.short_title:
             soc_short_title_msg = 'Short title on SOC: "' +\
                                   soc_course.short_title + '".'
-            spr_short_title_msg = 'Short title on Spreadsheet: "' +\
+            spr_short_title_msg = 'Short title on SPR: "' +\
                                   spr_course.short_title + '".'
             errmsg_list.append(soc_short_title_msg)
             errmsg_list.append(spr_short_title_msg)
@@ -87,22 +83,48 @@ def crosscheck(soc_lines, spr_lines):
         if soc_course.day_of_week != spr_course.day_of_week:
             soc_dow_msg = 'Day of week on SOC: ' +\
                           ccutils.dow2str(soc_course.day_of_week) + '.'
-            spr_dow_msg = 'Day of week on Spreadsheet: ' +\
+            spr_dow_msg = 'Day of week on SPR: ' +\
                           ccutils.dow2str(spr_course.day_of_week) + '.'
             errmsg_list.append(soc_dow_msg)
             errmsg_list.append(spr_dow_msg)
 
         # Start & End time
-        # These following checks are specific to S21
+        # These following checks are specific to S21:
+        # All classes originally starting <= 6:30 should start at 7
+        # All classes originally starting > 6:30 should start at 8:30
+        # Class legth should be unchanged
+        # In a usual semester, just check if the start and end times are equal
         socst = soc_course.start_time
         socet = soc_course.end_time
-        socint = ccutils.timediff(socst, socet)
+        socdur = ccutils.timediff(socst, socet)
         sprst = spr_course.start_time
         spret = spr_course.end_time
-        sprint = ccutils.timediff(sprst, spret)
+        sprdur = ccutils.timediff(sprst, spret)
         halfpastsix = datetime.time(18, 30)
-        
+        sevenoclock = datetime.time(19, 00)
+        halfpasteight = datetime.time(20, 30)
 
+        if (ccutils.before(sprst, halfpastsix) or sprst == halfpastsix):
+            if socst != sevenoclock:
+                start_time_msg = 'Start time on SPR (' + \
+                        ccutils.time2str(sprst) + ') is at or before 18:30.'\
+                        ' SOC start time (' + ccutils.time2str(socst) +\
+                        ') should be 19:00.'
+                errmsg_list.append(start_time_msg)
+        else:
+            if socst != halfpasteight:
+                start_time_msg = 'Start time on SPR (' + \
+                        ccutils.time2str(sprst) + ') is after 18:30.'\
+                        ' SOC start time (' + ccutils.time2str(socst) +\
+                        ') should be 20:30.'
+                errmsg_list.append(start_time_msg)
+
+        if socdur != sprdur:
+            soc_dur_msg = 'Duration on SOC: ' + str(socdur)
+            spr_dur_msg = 'Duration on SPR: ' + str(sprdur)
+            errmsg_list.append(soc_dur_msg)
+            errmsg_list.append(spr_dur_msg)
+        
 
 
         if errmsg_list != []:
