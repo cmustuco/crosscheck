@@ -195,8 +195,10 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(spr_me_msg)
 
         # Description
-        soc_desc = soc_course.description.replace(" ", "").replace("\n", "")
-        spr_desc = spr_course.description.replace(" ", "").replace("\n", "")
+        soc_desc = soc_course.description.replace(" ", "").replace("\n", "")\
+            .replace("\t", "")
+        spr_desc = spr_course.description.replace(" ", "").replace("\n", "")\
+            .replace("\t", "")
         if soc_desc != spr_desc:
             des_msg = "Course descriptions are different."
             errmsg_list.append(des_msg)

@@ -52,10 +52,11 @@ The user should go over the output list of differences, make any changes needed 
     - From the third row on, each row contains info for a course/instructor combination. For courses with more than 1 instructors, the different instructors will show up in neighboring rows.
     - The day of week is written as either "M", "Mon", or "Monday"
     - The start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`
+- Because the course descriptions are so easily messed up from parsing the PDF, currently, they are compared after taking out all whitespace characters (`" "`, `"\t"`, `"\n"`).
 
 ## Contributing
 
-You are welcome to contribute to this project. Currently, possible things to work on include:
+You are welcome to improve this project. Currently, possible things to work on include:
 - Support for command-line options so future Exec can choose to ignore some subset of course data (they may not care if the descriptions are different)
 - For some output entries (e.g. course description), write a formatted text to point out where exactly they are different
 - If the spreadsheet is still on Google Sheets, call the apprpriate API to fetch the CSV from Google so the user doesn't need to manually download it each time.
