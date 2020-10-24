@@ -46,6 +46,7 @@ The user should go over the output list of differences, make any changes needed 
 
 ### Notes
 - Currently, the code is now set to check course times according to the S21 special rules. For use in a normal semester, find that portion of the code and alter it so it just checks for equality.
+- The parser expects that the SOC PDF is in its standard format that includes course descriptions.
 - The parser expects these about the Spreadsheet:
     - The first row contains contains these columns: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
     - The second row contains info for 98000, which the parser ignores.
