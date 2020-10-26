@@ -89,6 +89,19 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(spr_dow_msg)
 
         # Start & End time ####################################################
+
+        #  # These following checks are for equality. Use in a normal semester.
+        #  if soc_course.start_time != spr_course.start_time or\
+        #          soc_course.end_time != spr_course.end_time:
+        #      soc_set_msg = 'Time range on SOC: ' +\
+        #                    ccutils.time2str(soc_course.start_time) + ' - ' +\
+        #                    ccutils.time2str(soc_course.end_time) + '.'
+        #      spr_set_msg = 'Time range on SPR: ' +\
+        #                    ccutils.time2str(spr_course.start_time) + ' - ' +\
+        #                    ccutils.time2str(spr_course.end_time) + '.'
+        #      errmsg_list.append(soc_set_msg)
+        #      errmsg_list.append(spr_set_msg)
+
         # These following checks are specific to S21.
         # In a usual semester, just check if the start and end times are equal
         socst = soc_course.start_time
@@ -226,13 +239,17 @@ def main():
 
     error_dict = crosscheck(soc_lines, spr_lines)
     with open(out_path, "w") as out_file:
-        for course_num in error_dict:
-            out_file.write(str(course_num))
-            for error_msg in error_dict[course_num]:
-                out_file.write("\n\t" + error_msg)
-            out_file.write("\n")
         if error_dict == {}:
             out_file.write("No difference found - All good!\n")
+            print("No difference found - All good!\n")
+        else:
+            for course_num in error_dict:
+                out_file.write(str(course_num))
+                for error_msg in error_dict[course_num]:
+                    out_file.write("\n\t" + error_msg)
+                out_file.write("\n")
+            print(f"Discrepancies found from {len(error_dict)} courses "
+                  f"written to {out_path}.")
 
 
 if __name__ == "__main__":
