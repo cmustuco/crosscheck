@@ -1,11 +1,10 @@
 # Crosscheck
 
-Crosscheck is a Python utility for comparing the Schedule of Classes PDF and the StuCo Spreadsheet CSV. It outputs a file detailing differences across these two documents.
+Crosscheck is a Python utility for comparing the Schedule of Classes and the StuCo Spreadsheet (both files in CSV). It outputs a file detailing differences across these two documents.
 
 ## Requirements
 
-1. Python 3
-2. The Python module [pdftotext](https://pypi.org/project/pdftotext/)
+Python 3
 
 ## Usage
 
@@ -14,19 +13,18 @@ Usually, at the start of the semester, the Spreadsheet contains data from incomi
 ```bash
 python crosscheck.py soc.pdf spr.csv out.txt
 ```
-`soc.pdf`: Pathname of the Schedule of Classes PDF file. This should come from Kristin.\
+`soc.pdf`: Pathname of the Schedule of Classes CSV file. This should come from Kristin.\
 `spr.csv`: Pathname of the StuCo Spreadsheet CSV file. This should be maintained by Exec.\
 `out.txt`: An output file will be created on this pathname and will detail all differences found across the SOC and the Spreadsheet.
 
 ## For StuCo Exec
-The output file lists all the differences found across both documents grouped by course number. In its language, SOC means Schedule of Classes, and SPR means the Spreadsheet.
+The output file lists all the differences found across both documents grouped by course number. SOC means Schedule of Classes, and SPR means the Spreadsheet.
 
 ### Actions to take
 Here's what to do upon each difference found:
 
 - **Long title, Short title, Description**
     - If the SPR version doesn't seem to be too far off from the SOC version, change the SPR to match the SOC. Otherwise, make sure that the SPR version is what the instructors really want and report to Kristin.
-    - Sometimes the SOC PDF can truncate the titles; it's a weakness inherent to SOC's PDF generation; we don't need to care about that.
 - **Day of week, Modality, Instructors**
     - Verify and ask Kristin to change the SOC.
 - **Location, Max Enroll**
@@ -35,25 +33,26 @@ Here's what to do upon each difference found:
     - Validate the instructor input. StuCo class lengths are always 50 mins, 80 mins, or 110 mins. Classes aren't permitted to end on the hour.
     - If the instructor input is bad, go with the nearest reasonable time range on both the Spreadsheet and the SOC. For example, if some course wants to have a 60-min class from 6:30 to 7:30, change that to a 50-min class from 6:30 to 7:20. If it's not clear what the instructors want, contact them to find out.
     - If the instructor request is legitimate, verify that it is what they really want and report to Kristin.
-    - **S21 Special Rules**
-        - In a normal semester, we just care if the times are the same across the Spreadsheet and the SOC. However, specific to Spring 2021, these rules are in place:
-            1. If a course originally wanted to start at or before 6:30 PM, it should now start at 7:00 PM.
-            2. If a course originally wanted to start after 6:30 PM, it should now start at 8:30 PM.
-            3. Course duration should be unchanged.
-        - If any of the above is violated, validate the instructor input and report to Kristin. After all course times are confirmed, we should update the Spreadsheet times to match the SOC.
 
-The user should go over the output list of differences, make any changes needed to the Spreadsheet, and then forward to Kristin a list of changes to be made to the SOC.
+Exec should go over the output list of differences, make any changes needed to the Spreadsheet, and then forward to Kristin a list of changes to be made to the SOC.
 
 ### Notes
-- Currently, the code is now set to check course times according to the S21 special rules. For use in a normal semester, find that portion of the code and alter it so it just checks for equality.
-- The parser expects that the SOC PDF is in its standard format that includes course descriptions.
-- The parser expects these about the Spreadsheet:
-    - The first row contains contains these columns: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
+- The parser expects these about the SOC CSV:
+- The parser expects these about the Spreadsheet CSV:
+    - The first row contains contains these columns in any order: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
     - The second row contains info for 98000, which the parser ignores.
     - From the third row on, each row contains info for a course/instructor combination. For courses with more than 1 instructors, the different instructors will show up in neighboring rows.
-    - The day of week is written as either "M", "Mon", or "Monday"
-    - The start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`
-- Because the course descriptions are so easily messed up from parsing the PDF, currently, they are compared after taking out all whitespace characters (`" "`, `"\t"`, `"\n"`).
+    - Course number is written with a hyphen e.g. "98-000"
+    - Day of week is written in this format:
+
+        | Day of week | Acceptable inputs |||
+        | --- | --- | --- | --- | --- |
+        | Monday | 'M' | 'Mon' | 'Monday' |
+        | Tuesday | 'T' | 'Tue' | 'Tuesday' |
+
+        | e | e |
+        | 45 | 35 |
+    - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`
 
 ## Contributing
 

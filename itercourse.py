@@ -176,8 +176,7 @@ class SprIter():
         thisCourse.remote_only = self.get_entry(self.i, "Modality") == \
             "REO - Remote Only"
         thisCourse.max_enroll = int(self.get_entry(self.i, "Max Size"))
-        thisCourse.description = \
-            self.get_entry(self.i, "Course Description").strip()
+        thisCourse.description = self.get_entry(self.i, "Course Description")
 
         # Read every instructor line by line
         while self.parse_course_num(self.get_entry(self.i, "Class Number")) \
