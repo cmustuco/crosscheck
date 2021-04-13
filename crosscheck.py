@@ -88,56 +88,26 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(soc_dow_msg)
             errmsg_list.append(spr_dow_msg)
 
-        # Start & End time ####################################################
+        # Start & End time
+        if soc_course.start_time != spr_course.start_time or\
+                soc_course.end_time != spr_course.end_time:
+            soc_set_msg = 'Time range on SOC: ' +\
+                          ccutils.time2str(soc_course.start_time) + ' - ' +\
+                          ccutils.time2str(soc_course.end_time) + '.'
+            spr_set_msg = 'Time range on SPR: ' +\
+                          ccutils.time2str(spr_course.start_time) + ' - ' +\
+                          ccutils.time2str(spr_course.end_time) + '.'
+            errmsg_list.append(soc_set_msg)
+            errmsg_list.append(spr_set_msg)
 
-        #  # These following checks are for equality. Use in a normal semester.
-        #  if soc_course.start_time != spr_course.start_time or\
-        #          soc_course.end_time != spr_course.end_time:
-        #      soc_set_msg = 'Time range on SOC: ' +\
-        #                    ccutils.time2str(soc_course.start_time) + ' - ' +\
-        #                    ccutils.time2str(soc_course.end_time) + '.'
-        #      spr_set_msg = 'Time range on SPR: ' +\
-        #                    ccutils.time2str(spr_course.start_time) + ' - ' +\
-        #                    ccutils.time2str(spr_course.end_time) + '.'
-        #      errmsg_list.append(soc_set_msg)
-        #      errmsg_list.append(spr_set_msg)
-
-        # These following checks are specific to S21.
-        # In a usual semester, just check if the start and end times are equal
-        socst = soc_course.start_time
-        socet = soc_course.end_time
-        socdur = ccutils.timediff(socst, socet)
-        sprst = spr_course.start_time
-        spret = spr_course.end_time
-        sprdur = ccutils.timediff(sprst, spret)
-        halfpastsix = datetime.time(18, 30)
-        sevenoclock = datetime.time(19, 00)
-        halfpasteight = datetime.time(20, 30)
-
-        # All classes originally starting <= 6:30 should start at 7
-        if (ccutils.before(sprst, halfpastsix) or sprst == halfpastsix):
-            if socst != sevenoclock:
-                start_time_msg = 'Start time on SPR (' + \
-                        ccutils.time2str(sprst) + ') is at or before 18:30.'\
-                        ' SOC start time (' + ccutils.time2str(socst) +\
-                        ') should be 19:00.'
-                errmsg_list.append(start_time_msg)
-        # All classes originally starting > 6:30 should start at 8:30
-        else:
-            if socst != halfpasteight:
-                start_time_msg = 'Start time on SPR (' + \
-                        ccutils.time2str(sprst) + ') is after 18:30.'\
-                        ' SOC start time (' + ccutils.time2str(socst) +\
-                        ') should be 20:30.'
-                errmsg_list.append(start_time_msg)
-
-        # Class length should be unchanged
+        # Duration
+        socdur = ccutils.timediff(soc_course.start_time, soc_course.end_time)
+        sprdur = ccutils.timediff(spr_course.start_time, spr_course.end_time)
         if socdur != sprdur:
             soc_dur_msg = 'Duration on SOC: ' + str(socdur)
             spr_dur_msg = 'Duration on SPR: ' + str(sprdur)
             errmsg_list.append(soc_dur_msg)
             errmsg_list.append(spr_dur_msg)
-        #######################################################################
 
         # Location
         if soc_course.location != spr_course.location:

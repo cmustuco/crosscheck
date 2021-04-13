@@ -9,23 +9,21 @@ import datetime
 
 def str2dow(curr):
     """
-    Converts a string representation of a day of week into a number scale.
+    Converts a string representation of a day of week into a number scale
+    where 1 = Monday, ..., 7 = Sunday, and -1 = Error.
     """
-    if curr in ['M', 'Mon', 'Monday']:
-        return 1
-    if curr in ['T', 'Tue', 'Tuesday']:
-        return 2
-    if curr in ['W', 'Wed', 'Wednesday']:
-        return 3
-    if curr in ['R', 'Thu', 'Thursday']:
-        return 4
-    if curr in ['F', 'Fri', 'Friday']:
-        return 5
-    if curr in ['S', 'Sat', 'Saturday']:
-        return 6
-    if curr in ['U', 'Sun', 'Sunday']:
-        return 7
-    return 0
+    curr = curr.lower()
+    buildup_list = ['m', 'mon', 'monday',
+                    't', 'tue', 'tuesday',
+                    'w', 'wed', 'wednesday',
+                    'r', 'thu', 'thursday',
+                    'f', 'fri', 'friday',
+                    's', 'sat', 'saturday',
+                    'u', 'sun', 'sunday']
+    if curr in buildup_list:
+        return (buildup_list.index(curr) // 3) + 1
+    else:
+        return -1
 
 
 def dow2str(dow):

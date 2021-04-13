@@ -13,14 +13,11 @@ Usually, at the start of the semester, the Spreadsheet contains data from incomi
 ```bash
 python crosscheck.py soc.pdf spr.csv out.txt
 ```
-`soc.pdf`: Pathname of the Schedule of Classes CSV file. This should come from Kristin.\
+`soc.csv`: Pathname of the Schedule of Classes CSV file. This should come from Kristin.\
 `spr.csv`: Pathname of the StuCo Spreadsheet CSV file. This should be maintained by Exec.\
 `out.txt`: An output file will be created on this pathname and will detail all differences found across the SOC and the Spreadsheet.
 
 ## For StuCo Exec
-The output file lists all the differences found across both documents grouped by course number. SOC means Schedule of Classes, and SPR means the Spreadsheet.
-
-### Actions to take
 Here's what to do upon each difference found:
 
 - **Long title, Short title, Description**
@@ -36,28 +33,28 @@ Here's what to do upon each difference found:
 
 Exec should go over the output list of differences, make any changes needed to the Spreadsheet, and then forward to Kristin a list of changes to be made to the SOC.
 
-### Notes
+## Notes
 - The parser expects these about the SOC CSV:
 - The parser expects these about the Spreadsheet CSV:
     - The first row contains contains these columns in any order: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
     - The second row contains info for 98000, which the parser ignores.
     - From the third row on, each row contains info for a course/instructor combination. For courses with more than 1 instructors, the different instructors will show up in neighboring rows.
-    - Course number is written with a hyphen e.g. "98-000"
-    - Day of week is written in this format:
+    - Day of week can be abbreviated, case insensitive:
 
-        | Day of week | Acceptable inputs |||
-        | --- | --- | --- | --- | --- |
-        | Monday | 'M' | 'Mon' | 'Monday' |
-        | Tuesday | 'T' | 'Tue' | 'Tuesday' |
+        | Day of week | Acceptable inputs |
+        | --- | --- |
+        | Monday | 'M' or 'Mon' or 'Monday' |
+        | Tuesday | 'T' or 'Tue' or 'Tuesday' |
+        | Wednesday | 'W' or 'Wed' or 'Wednesday' |
+        | Thursday | 'R' or 'Thu' or 'Thursday' |
+        | Friday | 'F' or 'Fri' or 'Friday' |
+        | Saturday | 'S' or 'Sat' or 'Saturday' |
+        | Sunday | 'U' or 'Sun' or 'Sunday' |
 
-        | e | e |
-        | 45 | 35 |
     - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`
 
 ## Contributing
-
 You are welcome to improve this project. Currently, possible things to work on include:
-- Support for command-line options so future Exec can choose to ignore some subset of course data (they may not care if the descriptions are different)
+- Support for command-line options to operate on some subset of the data (users may not care if the descriptions are different)
 - For some output entries (e.g. course description), write a formatted text to point out where exactly they are different
 - If the spreadsheet is still on Google Sheets, call the apprpriate API to fetch the CSV from Google so the user doesn't need to manually download it each time.
-    - In this case, it's also possible to *automate some changes* to the cloud document when it's clear some field on the Spreadsheet needs to be changed.
