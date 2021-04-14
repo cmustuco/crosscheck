@@ -91,6 +91,7 @@ def building2abb(bd):
                      'Elliot Dunlap Smith Hall': 'EDS',
                      'Gesling Stadium': 'GES',
                      'Gates and Hillman Centers': 'GHC',
+                     'Gates Hillman Center': 'GHC',
                      'Weigand Gymnasium': 'GYM',
                      'Hamburg Hall': 'HBH',
                      'Hamerschlag Hall': 'HH',
@@ -117,3 +118,14 @@ def building2abb(bd):
         return abbreviations[bd]
     else:
         return 'Error'
+
+
+def parse_course_num(numstr):
+    return parse_int(re.sub("-", "", numstr))
+
+
+def parse_int(numstr):
+    try:
+        return int(numstr)
+    except ValueError:
+        return "Error"

@@ -22,8 +22,8 @@ class SocIter():
         self.index_dict = {x: self.lines[0].index(x) for x in buildup_list}
 
         # Skip 98000
-        while self.parse_course_num(self.get_entry(self.i, "COURSE")) !=\
-                '98000':
+        while ccutils.parse_course_num(self.get_entry(self.i, "COURSE")) !=\
+                98000:
             self.i += 1
             if self.i >= len(self.lines):
                 break
@@ -41,12 +41,12 @@ class SocIter():
         thisCourse = course.Course()
 
         # Reading various info on this line
-        thisCourse.number = self.parse_course_num(
+        thisCourse.number = ccutils.parse_course_num(
             self.get_entry(self.i, "COURSE"))
         title_format = r'Student Taught Courses \(StuCo\): (?P<long>.+)'\
             r' \((?P<short>STUCO: .+)\)'
         titles = re.match(title_format,
-                          self.get_entry(self.i, "COURSE_TITLE")).groupdict()
+                          self.get_entry(self.i, "COURSE TITLE"))
         if titles is None:
             titles = {'long': 'Error', 'short': 'Error'}
         thisCourse.long_title = titles['long']
@@ -80,9 +80,6 @@ class SocIter():
     def get_entry(self, line_num, keyword):
         return self.lines[line_num][self.index_dict[keyword]]
 
-    def parse_course_num(self, numstr):
-        return int(re.sub("-", "", numstr))
-
 
 class SprIter():
     """
@@ -101,8 +98,9 @@ class SprIter():
         self.index_dict = {x: self.lines[0].index(x) for x in buildup_list}
 
         # Skip 98000
-        while self.parse_course_num(self.get_entry(self.i,
-                                    "Class Number")) != '98000':
+        while ccutils.parse_course_num(self.get_entry(self.i,
+                                                      "Class Number"))\
+                != 98000:
             self.i += 1
             if self.i >= len(self.lines):
                 break
@@ -120,7 +118,7 @@ class SprIter():
         thisCourse = course.Course()
 
         # Reading various info from first row
-        thisCourse.number = self.parse_course_num(
+        thisCourse.number = ccutils.parse_course_num(
                 self.get_entry(self.i, "Class Number"))
         thisCourse.long_title = self.get_entry(self.i, "Long Title")
         thisCourse.short_title = self.get_entry(self.i, "Short Title")
@@ -130,13 +128,13 @@ class SprIter():
         thisCourse.end_time = ccutils.str2time(
                 self.get_entry(self.i, "End Time"))
         thisCourse.location = self.get_entry(self.i, "Room")
-        thisCourse.remote_only = self.get_entry(self.i, "Modality") == \
-            "REO - Remote Only"
-        thisCourse.max_enroll = int(self.get_entry(self.i, "Max Size"))
+        thisCourse.modality = self.get_entry(self.i, "Modality")
+        thisCourse.max_enroll =\
+            ccutils.parse_int(self.get_entry(self.i, "Max Size"))
         thisCourse.description = self.get_entry(self.i, "Course Description")
 
         # Read every instructor line by line
-        while self.parse_course_num(self.get_entry(self.i, "Class Number")) \
+        while ccutils.parse_course_num(self.get_entry(self.i, "Class Number"))\
                 == thisCourse.number:
             lname = self.get_entry(self.i, "Instructor Last Name").strip()
             fini = self.get_entry(self.i, "Instructor First Name").strip()[0]
@@ -151,6 +149,3 @@ class SprIter():
 
     def get_entry(self, line_num, keyword):
         return self.lines[line_num][self.index_dict[keyword]]
-
-    def parse_course_num(self, numstr):
-        return int(re.sub("-", "", numstr))

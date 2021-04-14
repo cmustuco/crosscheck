@@ -34,13 +34,6 @@ def crosscheck(soc_lines, spr_lines):
     spr_iter = itercourse.SprIter(spr_lines)
     spr_dict = {course.number: course for course in spr_iter}
 
-    print("SOC ----------------------------------------------")
-    for course in soc_dict:
-        print(course)
-    print("SPR ----------------------------------------------")
-    for course in spr_dict:
-        print(course)
-
     errdict = {}
 
     # Checking if some course exists in one profile but not the other
@@ -144,7 +137,7 @@ def crosscheck(soc_lines, spr_lines):
         soc_ins_pop_list = []
         for insid in soc_ins_dict:
             if insid not in spr_ins_dict:
-                soc_ins_msg = 'Instructor ' + soc_ins_dict[insid] +\
+                soc_ins_msg = 'Instructor ' + str(soc_ins_dict[insid]) +\
                         ' is included in SOC but not in SPR.'
                 errmsg_list.append(soc_ins_msg)
                 soc_ins_pop_list.append(insid)
@@ -154,7 +147,7 @@ def crosscheck(soc_lines, spr_lines):
         spr_ins_pop_list = []
         for insid in spr_ins_dict:
             if insid not in soc_ins_dict:
-                spr_ins_msg = 'Instructor ' + spr_ins_dict[insid] +\
+                spr_ins_msg = 'Instructor ' + str(spr_ins_dict[insid]) +\
                         ' is included in SPR but not in SOC.'
                 errmsg_list.append(spr_ins_msg)
                 spr_ins_pop_list.append(insid)
@@ -166,18 +159,22 @@ def crosscheck(soc_lines, spr_lines):
             soc_ins = soc_ins_dict[insid]
             spr_ins = spr_ins_dict[insid]
             if soc_ins.first_initial != spr_ins.first_initial:
-                fini_msg = 'Instructor ' + spr_ins +\
+                fini_msg = 'Instructor ' + str(soc_ins) +\
                         ' has first name initial "' + soc_ins.first_initial +\
                         '" in SOC but "' + spr_ins.first_initial + '" in SPR.'
                 errmsg_list.append(fini_msg)
             if soc_ins.last_name != spr_ins.last_name:
-                lname_msg = 'Instructor ' + spr_ins + ' has last name "'\
+                lname_msg = 'Instructor ' + str(soc_ins) + ' has last name "'\
                     + soc_ins.last_name + '" in SOC but "'\
                     + spr_ins.last_name + '" in SPR.'
                 errmsg_list.append(lname_msg)
         #######################################################################
 
         # Max enroll
+        if soc_course.max_enroll == "Error":
+            errmsg_list.append("Error parsing Max Enroll on SOC.")
+        if spr_course.max_enroll == "Error":
+            errmsg_list.append("Error parsing Max Enroll on SPR.")
         if soc_course.max_enroll != spr_course.max_enroll:
             soc_me_msg = 'Max Enroll on SOC is ' +\
                     str(soc_course.max_enroll) + '.'
