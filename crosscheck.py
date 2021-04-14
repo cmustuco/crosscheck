@@ -217,7 +217,7 @@ def main():
     error_dict = crosscheck(soc_lines, spr_lines)
     with open(out_path, "w") as out_file:
         if error_dict == {}:
-            out_file.write("No difference found - All good!\n")
+            out_file.write("No difference found - All good!")
             print("No difference found - All good!")
         else:
             for course_num in error_dict:
