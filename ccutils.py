@@ -23,28 +23,15 @@ def str2dow(curr):
     if curr in buildup_list:
         return (buildup_list.index(curr) // 3) + 1
     else:
-        return -1
+        return 0
 
 
 def dow2str(dow):
     """
     Converts a number scale of day of week to a string representation.
     """
-    if dow == 1:
-        return "Monday"
-    if dow == 2:
-        return "Tuesday"
-    if dow == 3:
-        return "Wednesday"
-    if dow == 4:
-        return "Thursday"
-    if dow == 5:
-        return "Friday"
-    if dow == 6:
-        return "Saturday"
-    if dow == 7:
-        return "Sunday"
-    return "Noday"
+    return ['Error', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+            'Saturday', 'Sunday'][dow]
 
 
 def str2time(curr):
@@ -87,3 +74,46 @@ def time2str(curr):
     Represent the given time in the format \d{2}:\d{2}, in 24 hours notation.
     """
     return datetime.time.strftime(curr, "%H:%M")
+
+
+def building2abb(bd):
+    """
+    Represent the building name passed in into abbreviation according to the
+    university's convention. See https://www.cmu.edu/hub/legend.html
+    """
+    abbreviations = {'Baker Hall': 'BH',
+                     'College of Fine Arts': 'CFA',
+                     'Collaborative Innovation Center': 'CIC',
+                     'Carnegie Mellon': 'CMU',
+                     'Cohon University Center': 'CUC',
+                     'Cyert Hall': 'CYH',
+                     'Doherty Hall': 'DH',
+                     'Elliot Dunlap Smith Hall': 'EDS',
+                     'Gesling Stadium': 'GES',
+                     'Gates and Hillman Centers': 'GHC',
+                     'Weigand Gymnasium': 'GYM',
+                     'Hamburg Hall': 'HBH',
+                     'Hamerschlag Hall': 'HH',
+                     'Hunt Library': 'HL',
+                     'Hall of the Arts': 'HOA',
+                     '4616 Henry Street': 'INI',
+                     'Mellon Institute': 'MI',
+                     'Margaret Morrison Carnegie Hall': 'MM',
+                     'Newell-Simon Hall': 'NSH',
+                     'Off Campus': 'OFF',
+                     'Purnell Center for the Arts': 'PCA',
+                     'Porter Hall': 'PH',
+                     'Posner Hall': 'POS',
+                     'Pittsburgh Technology Center - 2nd Avenue': 'PTC',
+                     'Roberts Engineering Hall': 'REH',
+                     'Tepper Quad': 'TEP',
+                     '300 South Craig Street': '3SC',
+                     '407 South Craig Street': '4SC',
+                     'Software Engineering Institute': 'SEI',
+                     'Scaife Hall': 'SH',
+                     'Warner Hall': 'WH',
+                     'Wean Hall': 'WEH'}
+    if bd in abbreviations:
+        return abbreviations[bd]
+    else:
+        return 'Error'

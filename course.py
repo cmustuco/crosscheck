@@ -32,14 +32,14 @@ class Course:
         # int including 98 excluding hyphen e.g. 98012
         self.number = 0
 
-        # string including "Student Taught Courses (StuCo): " prefix
-        # e.g. "Student Taught Courses (StuCo): Fun with Robots"
+        # string WITHOUT the "Student Taught Courses (StuCo): " prefix
+        # e.g. "Fun with Robots"
         self.long_title = ""
 
-        # string including "STUCO: " prefix e.g. "STUCO: FUN WTH ROBTS"
+        # string WITH the "STUCO: " prefix e.g. "STUCO: FUN WTH ROBTS"
         self.short_title = ""
 
-        # int type: 1 = Mon, 2 = Tues, ..., 7 = Sun
+        # int type: 1 = Mon, 2 = Tues, ..., 7 = Sun, 0 = Error
         self.day_of_week = 0
 
         # datetime object denoting starting time on the day
@@ -48,11 +48,11 @@ class Course:
         # datetime object denoting ending time on the day
         self.end_time = None
 
-        # string Room as it shows on SIO
+        # string room abbreviated according to the university convention
         self.location = ""
 
-        # bool value, trueiff the class is remote only
-        self.remote_only = None
+        # string modality one of {'IPE', 'IPO', 'REO', 'PER', 'IPR', 'IRR'}
+        self.modality = ""
 
         # A set of Instructor objects
         self.instructors = set()
@@ -71,7 +71,7 @@ class Course:
         target += " " + str(self.start_time)
         target += " - " + str(self.end_time) + "\n"
         target += "Location " + self.location + "\n"
-        target += "Remote only: " + str(self.remote_only) + "\n"
+        target += "Remote only: " + str(self.modality) + "\n"
         target += "Max enroll = " + str(self.max_enroll) + "\n"
         target += "Instructor(s):"
         for instructor in self.instructors:

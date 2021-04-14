@@ -51,10 +51,13 @@ Exec should go over the output list of differences, make any changes needed to t
         | Saturday | 'S' or 'Sat' or 'Saturday' |
         | Sunday | 'U' or 'Sun' or 'Sunday' |
 
-    - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`
+    - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`.
+    - Modality is written as one of {'IPE', 'IPO', 'REO', 'PER', 'IPR', 'IRR'}.
 
 ## Contributing
 You are welcome to improve this project. Currently, possible things to work on include:
-- Support for command-line options to operate on some subset of the data (users may not care if the descriptions are different)
+- Support for command-line options to operate on some subset of the data (only check certain columns, or certain courses)
+- Support for parsing special characters e.g. ö which currently makes the regex parsing fail
+- Robustness: report and do not crash when parsing fails due to incorrectly formatted input
 - For some output entries (e.g. course description), write a formatted text to point out where exactly they are different
 - If the spreadsheet is still on Google Sheets, call the apprpriate API to fetch the CSV from Google so the user doesn't need to manually download it each time.

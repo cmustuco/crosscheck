@@ -15,8 +15,6 @@ Args:
 """
 import sys
 import csv
-import datetime
-import pdftotext
 import itercourse
 import ccutils
 
@@ -35,6 +33,13 @@ def crosscheck(soc_lines, spr_lines):
 
     spr_iter = itercourse.SprIter(spr_lines)
     spr_dict = {course.number: course for course in spr_iter}
+
+    print("SOC ----------------------------------------------")
+    for course in soc_dict:
+        print(course)
+    print("SPR ----------------------------------------------")
+    for course in spr_dict:
+        print(course)
 
     errdict = {}
 
@@ -62,6 +67,8 @@ def crosscheck(soc_lines, spr_lines):
         errmsg_list = []
 
         # Long title
+        if soc_course.long_title == 'Error':
+            errmsg_list.append("Error parsing long title on SOC.")
         if soc_course.long_title != spr_course.long_title:
             soc_long_title_msg = 'Long title on SOC: "' +\
                                  soc_course.long_title + '".'
@@ -71,6 +78,8 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(spr_long_title_msg)
 
         # Short title
+        if soc_course.short_title == 'Error':
+            errmsg_list.append("Error parsing short title on SOC.")
         if soc_course.short_title != spr_course.short_title:
             soc_short_title_msg = 'Short title on SOC: "' +\
                                   soc_course.short_title + '".'
@@ -80,6 +89,10 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(spr_short_title_msg)
 
         # Day of week
+        if soc_course.day_of_week == 0:
+            errmsg_list.append("Error parsing day of week on SOC.")
+        if spr_course.day_of_week == 0:
+            errmsg_list.append("Error parsing day of week on SPR.")
         if soc_course.day_of_week != spr_course.day_of_week:
             soc_dow_msg = 'Day of week on SOC: ' +\
                           ccutils.dow2str(soc_course.day_of_week) + '.'
@@ -116,14 +129,10 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append(soc_loc_msg)
             errmsg_list.append(spr_loc_msg)
 
-        # Remote only
-        if soc_course.remote_only != spr_course.remote_only:
-            soc_mod_msg = 'Modality on SOC is ' +\
-                '' if soc_course.remote_only else 'NOT ' +\
-                'Remote Only.'
-            spr_mod_msg = 'Modality on SPR is ' +\
-                '' if spr_course.remote_only else 'NOT ' +\
-                'Remote Only.'
+        # Modality
+        if soc_course.modality != spr_course.modality:
+            soc_mod_msg = 'Modality on SOC: "' + soc_course.modality + '".'
+            spr_mod_msg = 'Modality on SPR: "' + spr_course.modality + '".'
             errmsg_list.append(soc_mod_msg)
             errmsg_list.append(spr_mod_msg)
 
@@ -135,8 +144,8 @@ def crosscheck(soc_lines, spr_lines):
         soc_ins_pop_list = []
         for insid in soc_ins_dict:
             if insid not in spr_ins_dict:
-                soc_ins_msg = 'Instructor ' + insid + ' is included in SOC'\
-                        ' but not in SPR.'
+                soc_ins_msg = 'Instructor ' + soc_ins_dict[insid] +\
+                        ' is included in SOC but not in SPR.'
                 errmsg_list.append(soc_ins_msg)
                 soc_ins_pop_list.append(insid)
         for waste_id in soc_ins_pop_list:
@@ -145,24 +154,24 @@ def crosscheck(soc_lines, spr_lines):
         spr_ins_pop_list = []
         for insid in spr_ins_dict:
             if insid not in soc_ins_dict:
-                spr_ins_msg = 'Instructor ' + insid + ' is included in SPR'\
-                        ' but not in SOC.'
+                spr_ins_msg = 'Instructor ' + spr_ins_dict[insid] +\
+                        ' is included in SPR but not in SOC.'
                 errmsg_list.append(spr_ins_msg)
                 spr_ins_pop_list.append(insid)
         for waste_id in spr_ins_pop_list:
             spr_ins_dict.pop(waste_id)
 
-        # Now both profiles contain equal instructors, check each
+        # Now both profiles contain equal instructor IDs, check each name
         for insid in soc_ins_dict:
             soc_ins = soc_ins_dict[insid]
             spr_ins = spr_ins_dict[insid]
             if soc_ins.first_initial != spr_ins.first_initial:
-                fini_msg = 'Instructor ' + insid + ' has first name initial "'\
-                    + soc_ins.first_initial + '" in SOC but "'\
-                    + spr_ins.first_initial + '" in SPR.'
+                fini_msg = 'Instructor ' + spr_ins +\
+                        ' has first name initial "' + soc_ins.first_initial +\
+                        '" in SOC but "' + spr_ins.first_initial + '" in SPR.'
                 errmsg_list.append(fini_msg)
             if soc_ins.last_name != spr_ins.last_name:
-                lname_msg = 'Instructor ' + insid + ' has last name "'\
+                lname_msg = 'Instructor ' + spr_ins + ' has last name "'\
                     + soc_ins.last_name + '" in SOC but "'\
                     + spr_ins.last_name + '" in SPR.'
                 errmsg_list.append(lname_msg)
@@ -170,10 +179,10 @@ def crosscheck(soc_lines, spr_lines):
 
         # Max enroll
         if soc_course.max_enroll != spr_course.max_enroll:
-            soc_me_msg = 'Max Enroll on SOC: "' + str(soc_course.max_enroll) +\
-                '".'
-            spr_me_msg = 'Max Enroll on SPR: "' + str(spr_course.max_enroll) +\
-                '".'
+            soc_me_msg = 'Max Enroll on SOC is ' +\
+                    str(soc_course.max_enroll) + '.'
+            spr_me_msg = 'Max Enroll on SPR is ' +\
+                    str(spr_course.max_enroll) + '.'
             errmsg_list.append(soc_me_msg)
             errmsg_list.append(spr_me_msg)
 
@@ -197,11 +206,9 @@ def main():
     spr_path = sys.argv[2]
     out_path = sys.argv[3]
 
-    with open(soc_path, "rb") as soc_file:
-        soc_pdf = pdftotext.PDF(soc_file)
-        soc_str = "".join(soc_pdf)
-        soc_lines = soc_str.split("\n")
-        soc_lines = [x.strip() for x in soc_lines]
+    with open(soc_path, "r") as soc_file:
+        soc_reader = csv.reader(soc_file)
+        soc_lines = list(soc_reader)
 
     with open(spr_path, "r") as spr_file:
         spr_reader = csv.reader(spr_file)
@@ -211,7 +218,7 @@ def main():
     with open(out_path, "w") as out_file:
         if error_dict == {}:
             out_file.write("No difference found - All good!\n")
-            print("No difference found - All good!\n")
+            print("No difference found - All good!")
         else:
             for course_num in error_dict:
                 out_file.write(str(course_num))
