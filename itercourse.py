@@ -9,8 +9,9 @@ import ccutils
 
 class SocIter():
     """
-    Iterator that takes in a the SOC lines and outputs courses.
+    Iterator that takes in the SOC lines and outputs courses.
     """
+
     def __init__(self, soc_lines):
         self.lines = soc_lines
         self.i = 0
@@ -22,7 +23,7 @@ class SocIter():
         self.index_dict = {x: self.lines[0].index(x) for x in buildup_list}
 
         # Skip 98000
-        while ccutils.parse_course_num(self.get_entry(self.i, "COURSE")) !=\
+        while ccutils.parse_course_code(self.get_entry(self.i, "COURSE")) !=\
                 98000:
             self.i += 1
             if self.i >= len(self.lines):
@@ -37,11 +38,11 @@ class SocIter():
         if self.i >= len(self.lines):
             raise StopIteration
 
-        # self.i now points at first row of new course
+        # self.i now points at new course
         thisCourse = course.Course()
 
         # Reading various info on this line
-        thisCourse.number = ccutils.parse_course_num(
+        thisCourse.number = ccutils.parse_course_code(
             self.get_entry(self.i, "COURSE"))
         title_format = r'Student Taught Courses \(StuCo\): (?P<long>.+)'\
             r' \((?P<short>STUCO: .+)\)'
@@ -53,9 +54,9 @@ class SocIter():
         thisCourse.short_title = titles['short']
         thisCourse.day_of_week = ccutils.str2dow(self.get_entry(self.i, "DAY"))
         thisCourse.start_time = ccutils.str2time(
-                self.get_entry(self.i, "BEGIN TIME"))
+            self.get_entry(self.i, "BEGIN TIME"))
         thisCourse.end_time = ccutils.str2time(
-                self.get_entry(self.i, "END TIME"))
+            self.get_entry(self.i, "END TIME"))
         building = self.get_entry(self.i, "BUILDING")
         room = self.get_entry(self.i, "ROOM")
         thisCourse.location = ccutils.building2abb(building) + " " + room
@@ -85,6 +86,7 @@ class SprIter():
     """
     Iterator that takes in the spreadsheet lines and outputs courses.
     """
+
     def __init__(self, spr_lines):
         self.lines = spr_lines
         self.i = 0
@@ -98,8 +100,8 @@ class SprIter():
         self.index_dict = {x: self.lines[0].index(x) for x in buildup_list}
 
         # Skip 98000
-        while ccutils.parse_course_num(self.get_entry(self.i,
-                                                      "Class Number"))\
+        while ccutils.parse_course_code(self.get_entry(self.i,
+                                                       "Class Number"))\
                 != 98000:
             self.i += 1
             if self.i >= len(self.lines):
@@ -118,15 +120,15 @@ class SprIter():
         thisCourse = course.Course()
 
         # Reading various info from first row
-        thisCourse.number = ccutils.parse_course_num(
-                self.get_entry(self.i, "Class Number"))
+        thisCourse.number = ccutils.parse_course_code(
+            self.get_entry(self.i, "Class Number"))
         thisCourse.long_title = self.get_entry(self.i, "Long Title")
         thisCourse.short_title = self.get_entry(self.i, "Short Title")
         thisCourse.day_of_week = ccutils.str2dow(self.get_entry(self.i, "Day"))
         thisCourse.start_time = ccutils.str2time(
-                self.get_entry(self.i, "Start Time"))
+            self.get_entry(self.i, "Start Time"))
         thisCourse.end_time = ccutils.str2time(
-                self.get_entry(self.i, "End Time"))
+            self.get_entry(self.i, "End Time"))
         thisCourse.location = self.get_entry(self.i, "Room")
         thisCourse.modality = self.get_entry(self.i, "Modality")
         thisCourse.max_enroll =\
@@ -134,8 +136,9 @@ class SprIter():
         thisCourse.description = self.get_entry(self.i, "Course Description")
 
         # Read every instructor line by line
-        while ccutils.parse_course_num(self.get_entry(self.i, "Class Number"))\
-                == thisCourse.number:
+        while ccutils.parse_course_code(self.get_entry(self.i,
+                                                       "Class Number")) ==\
+                thisCourse.number:
             lname = self.get_entry(self.i, "Instructor Last Name").strip()
             fini = self.get_entry(self.i, "Instructor First Name").strip()[0]
             andrew = self.get_entry(self.i, "Instructor AndrewID").strip()

@@ -120,7 +120,7 @@ def building2abb(bd):
         return 'Error'
 
 
-def parse_course_num(numstr):
+def parse_course_code(numstr):
     return parse_int(re.sub("-", "", numstr))
 
 

@@ -1,19 +1,19 @@
 98012
-	Max Enroll on SOC is 20.
-	Max Enroll on SPR is 22.
 	Course descriptions are different.
 98025
 	Short title on SOC: "STUCO: ROGUELIKES".
 	Short title on SPR: "STUCO: INTRO TO ROGUELIKES".
 	Instructor M. McCoy (mwmccoy) has last name "McCoy" in SOC but "(Woody)" in SPR.
+	Error parsing Max Enroll on SPR.
 	Max Enroll on SOC is 20.
-	Max Enroll on SPR is 35.
+	Max Enroll on SPR is Error.
 	Course descriptions are different.
 98097
 	Long title on SOC: "Intro to Character Design (Digital Art)".
 	Long title on SPR: "Intro to Character Design (digital art)".
+	Error parsing Max Enroll on SPR.
 	Max Enroll on SOC is 30.
-	Max Enroll on SPR is 35.
+	Max Enroll on SPR is Error.
 98127
 	Long title on SOC: "Game Creation for Ppl Who Want to Create Games".
 	Long title on SPR: "Game Creation for Ppl Who Want to Make Games".
@@ -22,8 +22,6 @@
 	Short title on SPR: "STUCO: IMPROV COMEDY".
 	Instructor I. Loghinov (iloghino) has first name initial "I" in SOC but "J" in SPR.
 	Instructor N. Cekirge (ecekirge) has first name initial "N" in SOC but "E" in SPR.
-	Max Enroll on SOC is 20.
-	Max Enroll on SPR is 30.
 98166
 	Instructor Y. Zhang (yunyizha) has first name initial "Y" in SOC but "J" in SPR.
 	Course descriptions are different.
@@ -38,12 +36,8 @@
 	Time range on SPR: 19:30 - 20:20.
 	Duration on SOC: 1:20:00
 	Duration on SPR: 0:50:00
-	Max Enroll on SOC is 15.
-	Max Enroll on SPR is 25.
 	Course descriptions are different.
 98205
-	Max Enroll on SOC is 26.
-	Max Enroll on SPR is 50.
 	Course descriptions are different.
 98230
 	Long title on SOC: "Avatar: The Last Airbender & The Legend of Korra".
@@ -64,27 +58,10 @@
 	Long title on SOC: "Intro to Sabermetrics & Exploring Baseball Data".
 	Long title on SPR: "Introduction to Sabermetrics & Exploring Baseball Data".
 	Instructor T. Marshall Rodriguez (tmmarsha) has last name "Marshall Rodriguez" in SOC but "Marshall" in SPR.
-	Error parsing Max Enroll on SPR.
-	Max Enroll on SOC is 12.
-	Max Enroll on SPR is Error.
 98288
 	Long title on SOC: "Star Wars: The Course Awakens".
 	Long title on SPR: "Star Wars".
 	Instructor M. OBroin (mobroin) has last name "OBroin" in SOC but "Obroin" in SPR.
-	Max Enroll on SOC is 20.
-	Max Enroll on SPR is 30.
-98291
-	Max Enroll on SOC is 25.
-	Max Enroll on SPR is 30.
-98303
-	Max Enroll on SOC is 15.
-	Max Enroll on SPR is 20.
-98309
-	Max Enroll on SOC is 30.
-	Max Enroll on SPR is 35.
-98317
-	Max Enroll on SOC is 25.
-	Max Enroll on SPR is 40.
 98331
 	Long title on SOC: "Animation and Video Editing".
 	Long title on SPR: "Animation & Video Editing".
@@ -92,8 +69,6 @@
 	Short title on SPR: "STUCO: ANIM & VID EDIT".
 	Time range on SOC: 19:30 - 20:20.
 	Time range on SPR: 19:00 - 19:50.
-	Max Enroll on SOC is 15.
-	Max Enroll on SPR is 20.
 	Course descriptions are different.
 98335
 	Time range on SOC: 19:00 - 20:20.
@@ -109,8 +84,6 @@
 	Error parsing short title on SOC.
 	Short title on SOC: "Error".
 	Short title on SPR: "STUCO: HORROR MEDIA".
-	Max Enroll on SOC is 10.
-	Max Enroll on SPR is 15.
 98360
 	Error parsing long title on SOC.
 	Long title on SOC: "Error".
@@ -118,23 +91,14 @@
 	Error parsing short title on SOC.
 	Short title on SOC: "Error".
 	Short title on SPR: "STUCO: GEB".
-	Max Enroll on SOC is 10.
-	Max Enroll on SPR is 25.
-98369
-	Max Enroll on SOC is 15.
-	Max Enroll on SPR is 30.
 98374
 	Time range on SOC: 19:00 - 19:50.
 	Time range on SPR: 19:00 - 20:20.
 	Duration on SOC: 0:50:00
 	Duration on SPR: 1:20:00
 98375
-	Max Enroll on SOC is 30.
-	Max Enroll on SPR is 40.
 	Course descriptions are different.
 98377
-	Max Enroll on SOC is 15.
-	Max Enroll on SPR is 20.
 	Course descriptions are different.
 98387
 	Long title on SOC: "The Schitt's Creek StuCo".
@@ -143,8 +107,6 @@
 	Short title on SPR: "STUCO: SCHITT".
 	Course descriptions are different.
 98388
-	Max Enroll on SOC is 30.
-	Max Enroll on SPR is 35.
 	Course descriptions are different.
 98389
 	Course descriptions are different.
