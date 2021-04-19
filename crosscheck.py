@@ -6,20 +6,20 @@ Spreadsheet.
 Usage: python crosscheck.py soc_path spr_path out_path
 
 Args:
-    soc_path: Path to the SOC PDF file. The SOC is the Schedule of Classes and
+    soc_path: Path to the SOC CSV file. The SOC is the Schedule of Classes and
         should come from Kristin.
     spr_path: Path to the Spreadsheet CSV file. The Spreadsheet is maintained
-        maintained by Exec and should be downloaded as a CSV.
+        by Exec and should be downloaded as a CSV.
     out_path: Path to the output file that will be created and will contain
         any output info.
 """
-import sys
+import argparse
 import csv
 import itercourse
 import ccutils
 
 
-def crosscheck(soc_lines, spr_lines):
+def crosscheck(soc_lines, spr_lines, arg_i, arg_D, arg_s):
     """
     Returns a list of error messages (strings), each containing one difference
     found between the SOC and the Spreadsheet.
@@ -27,12 +27,18 @@ def crosscheck(soc_lines, spr_lines):
     Args:
         soc_lines: a list containing each line in the SOC.
         spr_lines: a list containing each line in the spreadsheet.
+        arg_i: True iff -i was passed in from the command line.
+        arg_D: True iff -D was passed in from the command line.
+        arg_s: True iff -s was passed in from the command line.
     """
     soc_iter = itercourse.SocIter(soc_lines)
     soc_dict = {course.number: course for course in soc_iter}
 
     spr_iter = itercourse.SprIter(spr_lines)
     spr_dict = {course.number: course for course in spr_iter}
+
+    print(f"Crosschecking {len(soc_dict)} courses from SOC and "
+          f"{len(spr_dict)} courses from SPR.")
 
     errdict = {}
 
@@ -138,7 +144,7 @@ def crosscheck(soc_lines, spr_lines):
         for insid in soc_ins_dict:
             if insid not in spr_ins_dict:
                 soc_ins_msg = 'Instructor ' + str(soc_ins_dict[insid]) +\
-                        ' is included in SOC but not in SPR.'
+                    ' is included in SOC but not in SPR.'
                 errmsg_list.append(soc_ins_msg)
                 soc_ins_pop_list.append(insid)
         for waste_id in soc_ins_pop_list:
@@ -148,26 +154,27 @@ def crosscheck(soc_lines, spr_lines):
         for insid in spr_ins_dict:
             if insid not in soc_ins_dict:
                 spr_ins_msg = 'Instructor ' + str(spr_ins_dict[insid]) +\
-                        ' is included in SPR but not in SOC.'
+                    ' is included in SPR but not in SOC.'
                 errmsg_list.append(spr_ins_msg)
                 spr_ins_pop_list.append(insid)
         for waste_id in spr_ins_pop_list:
             spr_ins_dict.pop(waste_id)
 
         # Now both profiles contain equal instructor IDs, check each name
-        for insid in soc_ins_dict:
-            soc_ins = soc_ins_dict[insid]
-            spr_ins = spr_ins_dict[insid]
-            if soc_ins.first_initial != spr_ins.first_initial:
-                fini_msg = 'Instructor ' + str(soc_ins) +\
+        if not arg_i:
+            for insid in soc_ins_dict:
+                soc_ins = soc_ins_dict[insid]
+                spr_ins = spr_ins_dict[insid]
+                if soc_ins.first_initial != spr_ins.first_initial:
+                    fini_msg = 'Instructor ' + str(soc_ins) +\
                         ' has first name initial "' + soc_ins.first_initial +\
                         '" in SOC but "' + spr_ins.first_initial + '" in SPR.'
-                errmsg_list.append(fini_msg)
-            if soc_ins.last_name != spr_ins.last_name:
-                lname_msg = 'Instructor ' + str(soc_ins) + ' has last name "'\
-                    + soc_ins.last_name + '" in SOC but "'\
-                    + spr_ins.last_name + '" in SPR.'
-                errmsg_list.append(lname_msg)
+                    errmsg_list.append(fini_msg)
+                if soc_ins.last_name != spr_ins.last_name:
+                    lname_msg = 'Instructor ' + str(soc_ins) +\
+                        ' has last name "' + soc_ins.last_name +\
+                        '" in SOC but "' + spr_ins.last_name + '" in SPR.'
+                    errmsg_list.append(lname_msg)
         #######################################################################
 
         # Max enroll
@@ -177,20 +184,25 @@ def crosscheck(soc_lines, spr_lines):
             errmsg_list.append("Error parsing Max Enroll on SPR.")
         if soc_course.max_enroll != spr_course.max_enroll:
             soc_me_msg = 'Max Enroll on SOC is ' +\
-                    str(soc_course.max_enroll) + '.'
+                str(soc_course.max_enroll) + '.'
             spr_me_msg = 'Max Enroll on SPR is ' +\
-                    str(spr_course.max_enroll) + '.'
+                str(spr_course.max_enroll) + '.'
             errmsg_list.append(soc_me_msg)
             errmsg_list.append(spr_me_msg)
 
         # Description
-        soc_desc = soc_course.description.replace(" ", "").replace("\n", "")\
-            .replace("\t", "")
-        spr_desc = spr_course.description.replace(" ", "").replace("\n", "")\
-            .replace("\t", "")
-        if soc_desc != spr_desc:
-            des_msg = "Course descriptions are different."
-            errmsg_list.append(des_msg)
+        if not arg_D:
+            soc_desc = soc_course.description
+            if arg_s:
+                soc_desc = soc_desc.replace(" ", "")\
+                    .replace("\n", "").replace("\t", "")
+            spr_desc = spr_course.description
+            if arg_s:
+                spr_desc = spr_desc.replace(" ", "")\
+                    .replace("\n", "").replace("\t", "")
+            if soc_desc != spr_desc:
+                des_msg = "Course descriptions are different."
+                errmsg_list.append(des_msg)
 
         if errmsg_list != []:
             errdict[course_num] = errmsg_list
@@ -199,22 +211,38 @@ def crosscheck(soc_lines, spr_lines):
 
 
 def main():
-    soc_path = sys.argv[1]
-    spr_path = sys.argv[2]
-    out_path = sys.argv[3]
+    """
+    Driver program
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("soc_path", help="pathname to the SOC CSV file")
+    parser.add_argument("spr_path", help="pathname to the SPR CSV file")
+    parser.add_argument("out_path", help="pathname to the output file created")
+    parser.add_argument("-i", dest="i",
+                        help="For instructor checks, compare only Andrew ID's"
+                             " and ignore names",
+                        action="store_true")
+    desc = parser.add_mutually_exclusive_group()
+    desc.add_argument("-D", dest="D",
+                      help="Do not compare course descriptions",
+                      action="store_true")
+    desc.add_argument("-s", dest="s",
+                      help="Remove all whitespace in course descriptions"
+                      " before comparison",
+                      action="store_true")
+    args = parser.parse_args()
 
-    with open(soc_path, "r") as soc_file:
+    with open(args.soc_path, "r") as soc_file:
         soc_reader = csv.reader(soc_file)
         soc_lines = list(soc_reader)
 
-    with open(spr_path, "r") as spr_file:
+    with open(args.spr_path, "r") as spr_file:
         spr_reader = csv.reader(spr_file)
         spr_lines = list(spr_reader)
 
-    error_dict = crosscheck(soc_lines, spr_lines)
-    with open(out_path, "w") as out_file:
+    error_dict = crosscheck(soc_lines, spr_lines, args.i, args.D, args.s)
+    with open(args.out_path, "w") as out_file:
         if error_dict == {}:
-            out_file.write("No difference found - All good!")
             print("No difference found - All good!")
         else:
             for course_num in error_dict:
@@ -223,7 +251,7 @@ def main():
                     out_file.write("\n\t" + error_msg)
                 out_file.write("\n")
             print(f"Discrepancies found from {len(error_dict)} courses "
-                  f"written to {out_path}.")
+                  f"written to {args.out_path}.")
 
 
 if __name__ == "__main__":
