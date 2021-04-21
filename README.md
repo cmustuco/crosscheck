@@ -29,6 +29,9 @@ Exec should go over the output list of differences, make any changes needed to t
 ## Notes
 - The parser expects these about the SOC CSV:
     - It is downloaded by Kristin from Tableau as XLSX and converted to CSV on the Unicode (UTF-8) character set, with a Field delimiter of `,`, and a string delimiter of `"`. When converting, check the "Save cell content as shown" field, and uncheck these fields: "Quote all text cells", "Fixed column width".
+    - The first row contains these column names in any order: "COURSE", "COURSE TITLE", "DESCRIPTION", "DAY", "BEGIN TIME", "END TIME", "BUILDING", "ROOM", "INSTRUCTORS", "TEACHING MODALITY", "MAX ENROLL".
+    - The second tow contains info for 98000, which the parser ignores.
+    - Course code is written either with or without a hyphen.
     - Course name matches this regex format: `Student Taught Courses \(StuCo\): (?P<long>.+) \(STUCO: (?P<short>.+)\)` otherwise course title might be parsed as "Error".
     - Day of week can be abbreviated, case insensitive:
 
@@ -44,11 +47,13 @@ Exec should go over the output list of differences, make any changes needed to t
 
     - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`.
     - Modality is written as one of {'IPE', 'IPO', 'REO', 'PER', 'IPR', 'IRR'}.
-    - Column "Building" is the full name of the building according to the [CMU SOC Legend](https://www.cmu.edu/hub/legend.html)
+    - Column "BUILDING" writes the full name of the building according to the [CMU SOC Legend](https://www.cmu.edu/hub/legend.html). Room number within the building is written separetely in the column "ROOM". The Activities Room is abbreviated "ACTVY".
+    - Column "INSTRUCTORS" matches this regex format: `((?P<last_name>.+), (?P<first_initial>.) \((?P<andrew_id>.+)\)(; )?)+`
 - The parser expects these about the Spreadsheet CSV:
     - It is downloaded by Exec from Google Sheets as CSV.
-    - The first row contains contains these columns in any order: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
+    - The first row contains contains these column names in any order: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
     - The second row contains info for 98000, which the parser ignores.
+    - Course code is written either with or without a hyphen.
     - From the third row on, each row contains info for a course/instructor combination. For courses with more than 1 instructors, the different instructors will show up in neighboring rows.
     - Day of week can be abbreviated, case insensitive:
 
@@ -64,6 +69,7 @@ Exec should go over the output list of differences, make any changes needed to t
 
     - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`.
     - Modality is written as one of {'IPE', 'IPO', 'REO', 'PER', 'IPR', 'IRR'}.
+    - Column "Room" contains the abbreviation of the building name according to the [CMU SOC Legend](https://www.cmu.edu/hub/legend.html), followed by the room number within the building. The Activities Room is abbreviated "ACTVY".
 
 ## Contributing
 You are welcome to improve this project. Currently, possible things to work on include:
