@@ -1,6 +1,6 @@
 # Crosscheck
 
-Crosscheck is a Python utility for comparing the Schedule of Classes and the StuCo Spreadsheet (both files in CSV). It outputs a file detailing differences across these two documents.
+Crosscheck is a Python utility for comparing the Schedule of Classes and the StuCo Spreadsheet (both files in CSV). Usually, at the start of the semester, the Spreadsheet contains data from incoming course applications, and Kristin builds the Schedule of Classes from the Spreadsheet. However, some data fields on the SOC might be mistaken. Use this tool to generate a file detailing differences across these two documents.
 
 ## Requirements
 
@@ -8,14 +8,7 @@ Python 3
 
 ## Usage
 
-Usually, at the start of the semester, the Spreadsheet contains data from incoming course applications. Kristin builds the Schedule of Classes from the Spreadsheet but some data fields on the SOC might be mistaken. Run the following command to find out if any data fields differ across the SOC and the Spreadsheet:
-
-```bash
-python crosscheck.py soc.pdf spr.csv out.txt
-```
-`soc.csv`: Pathname of the Schedule of Classes CSV file. This should come from Kristin.\
-`spr.csv`: Pathname of the StuCo Spreadsheet CSV file. This should be maintained by Exec.\
-`out.txt`: An output file will be created on this pathname and will detail all differences found across the SOC and the Spreadsheet.
+Run `python crosscheck.py -h` for a complete diagnosis.
 
 ## For StuCo Exec
 Here's what to do upon each difference found:
@@ -35,7 +28,25 @@ Exec should go over the output list of differences, make any changes needed to t
 
 ## Notes
 - The parser expects these about the SOC CSV:
+    - It is downloaded by Kristin from Tableau as XLSX and converted to CSV on the Unicode (UTF-8) character set, with a Field delimiter of `,`, and a string delimiter of `"`. When converting, check the "Save cell content as shown" field, and uncheck these fields: "Quote all text cells", "Fixed column width".
+    - Course name matches this regex format: `Student Taught Courses \(StuCo\): (?P<long>.+) \(STUCO: (?P<short>.+)\)` otherwise course title might be parsed as "Error".
+    - Day of week can be abbreviated, case insensitive:
+
+        | Day of week | Acceptable inputs |
+        | --- | --- |
+        | Monday | 'M' or 'Mon' or 'Monday' |
+        | Tuesday | 'T' or 'Tue' or 'Tuesday' |
+        | Wednesday | 'W' or 'Wed' or 'Wednesday' |
+        | Thursday | 'R' or 'Thu' or 'Thursday' |
+        | Friday | 'F' or 'Fri' or 'Friday' |
+        | Saturday | 'S' or 'Sat' or 'Saturday' |
+        | Sunday | 'U' or 'Sun' or 'Sunday' |
+
+    - Start/end times are written in this regex format: `\d\d?:\d{2}(:\d{2})?(A|P)M`.
+    - Modality is written as one of {'IPE', 'IPO', 'REO', 'PER', 'IPR', 'IRR'}.
+    - Column "Building" is the full name of the building according to the [CMU SOC Legend](https://www.cmu.edu/hub/legend.html)
 - The parser expects these about the Spreadsheet CSV:
+    - It is downloaded by Exec from Google Sheets as CSV.
     - The first row contains contains these columns in any order: "Class Number", "Long Title", "Short Title", "Instructor First Name", "Instructor Last Name", "Instructor AndrewID", "Room", "Max Size", "Day", "Start Time", "End Time", "Modality", "Course Description".
     - The second row contains info for 98000, which the parser ignores.
     - From the third row on, each row contains info for a course/instructor combination. For courses with more than 1 instructors, the different instructors will show up in neighboring rows.
@@ -56,7 +67,6 @@ Exec should go over the output list of differences, make any changes needed to t
 
 ## Contributing
 You are welcome to improve this project. Currently, possible things to work on include:
-- Support for command-line options to operate on some subset of the data (only check certain columns, or certain courses)
 - Support for parsing special characters e.g. ö which currently makes the regex parsing fail
 - Robustness: report and do not crash when parsing fails due to incorrectly formatted input
 - For some output entries (e.g. course description), write a formatted text to point out where exactly they are different

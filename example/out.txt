@@ -1,89 +1,23 @@
 98012
 	Course descriptions are different.
 98025
-	Short title on SOC: "STUCO: ROGUELIKES".
-	Short title on SPR: "STUCO: INTRO TO ROGUELIKES".
-	Instructor M. McCoy (mwmccoy) has last name "McCoy" in SOC but "(Woody)" in SPR.
-	Error parsing Max Enroll on SPR.
-	Max Enroll on SOC is 20.
-	Max Enroll on SPR is Error.
 	Course descriptions are different.
-98097
-	Long title on SOC: "Intro to Character Design (Digital Art)".
-	Long title on SPR: "Intro to Character Design (digital art)".
-	Error parsing Max Enroll on SPR.
-	Max Enroll on SOC is 30.
-	Max Enroll on SPR is Error.
-98127
-	Long title on SOC: "Game Creation for Ppl Who Want to Create Games".
-	Long title on SPR: "Game Creation for Ppl Who Want to Make Games".
-98128
-	Short title on SOC: "STUCO: FNDL IMP CMDY".
-	Short title on SPR: "STUCO: IMPROV COMEDY".
-	Instructor I. Loghinov (iloghino) has first name initial "I" in SOC but "J" in SPR.
-	Instructor N. Cekirge (ecekirge) has first name initial "N" in SOC but "E" in SPR.
 98166
-	Instructor Y. Zhang (yunyizha) has first name initial "Y" in SOC but "J" in SPR.
 	Course descriptions are different.
 98186
-	Error parsing long title on SOC.
-	Long title on SOC: "Error".
-	Long title on SPR: "Fundamentals of Roller Coaster Design".
-	Error parsing short title on SOC.
-	Short title on SOC: "Error".
-	Short title on SPR: "STUCO: ROLLER COASTER DESIGN".
-	Time range on SOC: 19:00 - 20:20.
-	Time range on SPR: 19:30 - 20:20.
-	Duration on SOC: 1:20:00
-	Duration on SPR: 0:50:00
 	Course descriptions are different.
 98205
 	Course descriptions are different.
-98230
-	Long title on SOC: "Avatar: The Last Airbender & The Legend of Korra".
-	Long title on SPR: "Avatar: The Last Airbender and The Legend of Korra".
 98242
-	Long title on SOC: "Intro to Esoteric Programming Languages".
-	Long title on SPR: "Introduction to Esoteric Programming Languages".
-	Instructor P. Yoovidhya (piratacy) has first name initial "P" in SOC but "B" in SPR.
 	Course descriptions are different.
-98244
-	Long title on SOC: "Sign Language Through Pop Music".
-	Long title on SPR: "Sign Language through Pop Music".
 98262
-	Long title on SOC: "Intro to Boardgames".
-	Long title on SPR: "Introduction to Boardgames".
-	Instructor Y. Liu (yunsongl) has first name initial "Y" in SOC but "L" in SPR.
-98269
-	Long title on SOC: "Intro to Sabermetrics & Exploring Baseball Data".
-	Long title on SPR: "Introduction to Sabermetrics & Exploring Baseball Data".
-	Instructor T. Marshall Rodriguez (tmmarsha) has last name "Marshall Rodriguez" in SOC but "Marshall" in SPR.
-98288
-	Long title on SOC: "Star Wars: The Course Awakens".
-	Long title on SPR: "Star Wars".
-	Instructor M. OBroin (mobroin) has last name "OBroin" in SOC but "Obroin" in SPR.
+	Course descriptions are different.
+98272
+	Course descriptions are different.
 98331
-	Long title on SOC: "Animation and Video Editing".
-	Long title on SPR: "Animation & Video Editing".
-	Short title on SOC: "STUCO: ANIMATION".
-	Short title on SPR: "STUCO: ANIM & VID EDIT".
-	Time range on SOC: 19:30 - 20:20.
-	Time range on SPR: 19:00 - 19:50.
 	Course descriptions are different.
 98335
-	Time range on SOC: 19:00 - 20:20.
-	Time range on SPR: 19:30 - 20:20.
-	Duration on SOC: 1:20:00
-	Duration on SPR: 0:50:00
-	Instructor S. Zhang (spzang) is included in SPR but not in SOC.
 	Course descriptions are different.
-98359
-	Error parsing long title on SOC.
-	Long title on SOC: "Error".
-	Long title on SPR: "Survey of Horror in Media".
-	Error parsing short title on SOC.
-	Short title on SOC: "Error".
-	Short title on SPR: "STUCO: HORROR MEDIA".
 98360
 	Error parsing long title on SOC.
 	Long title on SOC: "Error".
@@ -91,20 +25,13 @@
 	Error parsing short title on SOC.
 	Short title on SOC: "Error".
 	Short title on SPR: "STUCO: GEB".
-98374
-	Time range on SOC: 19:00 - 19:50.
-	Time range on SPR: 19:00 - 20:20.
-	Duration on SOC: 0:50:00
-	Duration on SPR: 1:20:00
 98375
 	Course descriptions are different.
 98377
 	Course descriptions are different.
+98380
+	Course descriptions are different.
 98387
-	Long title on SOC: "The Schitt's Creek StuCo".
-	Long title on SPR: "The Schitt StuCo".
-	Short title on SOC: "STUCO: SCHITTS CREEK".
-	Short title on SPR: "STUCO: SCHITT".
 	Course descriptions are different.
 98388
 	Course descriptions are different.
