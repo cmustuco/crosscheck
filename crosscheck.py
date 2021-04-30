@@ -217,7 +217,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("soc_path", help="pathname to the SOC CSV file")
     parser.add_argument("spr_path", help="pathname to the SPR CSV file")
-    parser.add_argument("out_path", help="pathname to the output file created")
+    parser.add_argument("out_path",
+                        help="pathname to the output file to create")
     parser.add_argument("-i", dest="i",
                         help="For instructor checks, compare only Andrew ID's"
                              " and ignore names",
